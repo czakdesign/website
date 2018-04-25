@@ -21,7 +21,7 @@ You'll build the layout for the following screenshot:
 <img src="images/lakes.jpg" style="border:1px solid black" alt="finished lakes app that you'll build in 'Building a Layout'">
 
 This guide then takes a step back to explain Flutter's approach to layout,
-and shows how to place a single widget on the screen.
+and shows you how to place a single widget on the screen.
 After a discussion of how to lay widgets out horizontally and vertically,
 some of the most common layout widgets are covered.
 
