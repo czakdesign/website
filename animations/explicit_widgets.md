@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Flutter explicit animations"
-permalink: /animations/explicit_widgets.html
+title: "Flutter Explicit Animations"
+permalink: /animations/explicit_widgets/
 ---
 
 * TOC Placeholder
@@ -10,6 +10,8 @@ permalink: /animations/explicit_widgets.html
 
 
 Explicit animations allow you to specify precise custom animations. They're a bit more complicated than implicit and transition animations since they require you to build the animation objects, set their properties, and then apply those to the object that you want to animate.
+
+To add complex customized animations, Flutter provides  explicit animation widgets for customized effects so you can build your own animations using the `AnimatedBuilder` or `TransitionBuilder` widgets.
 
 ## Creating an explicit animation
 
@@ -43,7 +45,7 @@ To create an explicit animation, you need to create an `AnimationController` to 
   <col width="65%">
 	<tbody>
     <tr>
-      <td><img src="images/explicit.png" alt="Explicit animation widgets"></td>
+      <td><img src="/animations/images/explicit.png" alt="Explicit animation widgets"></td>
       <td>
       1. Declare your <code>StatefulWidget</code> class.<br>
       2. Declare the <code>State</code> class with the appropriate ticker: <code>SingleTickerProviderStateMixin</code> or <code>TickerProviderStateMixin</code>.<br>
@@ -60,7 +62,93 @@ To create an explicit animation, you need to create an `AnimationController` to 
   </table>
 </div>
 
-<!-- To reuse existing Flutter SDK implicit and transition widgets, see [Implicit animations](/animations/implicit_widgets.html) and [Transition animations](/animations/transition_widgets.html). -->
+<!-- To reuse existing Flutter implicit and transition widgets, see [Implicit animations](/animations/implicit_widgets/) and [Transition animations](/animations/transition_widgets/). -->
+
+
+## Flutter with and without an explicit animation
+Two code samples are provided below that show a Flutter app with an explicit animation and without a Flutter logo animation.
+
+### Flutter without an animation
+The following application draws the Flutter logo without animation.
+
+```Dart
+import 'package:flutter/material.dart';
+
+class LogoApp extends StatefulWidget {
+  _LogoAppState createState() => _LogoAppState();
+}
+
+class _LogoAppState extends State<LogoApp> {
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 10.0),
+        height: 300.0,
+        width: 300.0,
+        child: FlutterLogo(),
+      ),
+    );
+  }
+}
+
+void main() {
+  runApp(LogoApp());
+}
+```
+
+### Flutter with an explicit animation
+
+The following example shows the same code modified to animate the logo to grow from nothing to full size.  
+* When you define an `AnimationController`, you must pass in a `vsync` object and specify a ticker, tween, and listener.  
+* The `addListener()` function calls `setState()`, so every time the Animation generates a new number, the current frame is marked dirty, which forces a rebuild.   
+* During the build, the container changes size because its height and width now use `animation.value` instead of a hardcoded value.  
+* Dispose of the controller when the animation is finished to prevent memory leaks.  
+
+
+The changes from the non-animated example are highlighted.
+
+{% prettify dart %}
+```Dart
+[[highlight]]import 'package:flutter/animation.dart';[[/highlight]]
+import 'package:flutter/material.dart';
+class LogoApp extends StatefulWidget {
+  _LogoAppState createState() =>  _LogoAppState();
+}
+class _LogoAppState extends State<LogoApp> [[highlight]]with SingleTickerProviderStateMixin {
+  Animation<double> animation;
+  AnimationController controller;
+  initState() {
+    super.initState();
+    controller = AnimationController(
+        duration: const Duration(milliseconds: 2000), vsync: this);
+    animation = Tween(begin: 0.0, end: 300.0).animate(controller)
+      ..addListener(() {
+        setState(() {
+// the state that has changed here is the animation object’s value
+        });
+      });
+    controller.forward();
+  }[[/highlight]]
+  Widget build(BuildContext context) {
+    return Center(
+        child: Container(
+        margin: EdgeInsets.symmetric(vertical: 10.0),
+    height: [[highlight]]animation.value,[[/highlight]]  
+    width: [[highlight]]animation.value,[[/highlight]]  
+    child: FlutterLogo(),
+    ),
+    );
+  }
+  [[highlight]]dispose() {
+    controller.dispose();
+    super.dispose();[[/highlight]]  
+  }
+}
+void main() {
+  runApp(LogoApp());
+}
+```
+{% endprettify %}
 
 ## Explicit animation examples
 
@@ -85,7 +173,7 @@ add the code for the explicit widget
 
 ## Explicit animations widgets
 
-The Flutter SDK includes the following explicit animation widgets. This is a sample of the many explicit widgets that are included in the Flutter SDK.
+Flutter includes the following explicit animation widgets. This is a sample of the many explicit widgets that are included in the Flutter libraries.
 
 <div>
 <table class="table" width="100%">
@@ -105,61 +193,61 @@ The Flutter SDK includes the following explicit animation widgets. This is a sam
       <b>Modal</b>—A modal bottom sheet is an alternative to a menu or a dialog and prevents the user from interacting with the rest of the app.  <br>
 <!-- <span style="padding-left: 20px; display:block">
 </span> -->  
-			Flutter SDK libary: <a href="https://docs.flutter.io/flutter/material/material-library.html">material</a>
+			Flutter library: <a href="https://docs.flutter.io/flutter/material/material-library.html">material</a>
       </td>
 		</tr>
     <tr>
 			<td><a href="https://docs.flutter.io/flutter/material/ExpansionTile-class.html">ExpansionTile</a> </td>
 			<td>This widget is a single-line <a href="https://docs.flutter.io/flutter/material/ListTile-class.html">ListTile</a> with a trailing button that expands or collapses the tile to reveal or hide the children.<br>
-			Flutter SDK libary: <a href="https://docs.flutter.io/flutter/material/material-library.html">material</a>
+			Flutter library: <a href="https://docs.flutter.io/flutter/material/material-library.html">material</a>
       </td>
 		</tr>
     <tr>
       <td><a href="https://docs.flutter.io/flutter/material/PopupMenuButton-class.html">PopupMenuButton</a> </td>
       <td>This widget displays a menu when pressed and calls <code>onSelected</code> when the menu is dismissed because an item was selected. The value passed to <code>onSelected</code> is the value of the selected menu item. <br>
-      	Flutter SDK libary: <a href="https://docs.flutter.io/flutter/material/material-library.html">material</a>
+      	Flutter library: <a href="https://docs.flutter.io/flutter/material/material-library.html">material</a>
       </td>
     </tr>
     <tr>
       <td><a href="https://docs.flutter.io/flutter/material/ProgressIndicator-class.html">ProgressIndicator</a> </td>
       <td>This widget is a base class for Material Design progress indicators.<br>
-      Flutter SDK libary: <a href="https://docs.flutter.io/flutter/material/material-library.html">material</a>
+      Flutter library: <a href="https://docs.flutter.io/flutter/material/material-library.html">material</a>
       </td>
     </tr>
     <tr>
       <td><a href="https://docs.flutter.io/flutter/material/RefreshIndicator-class.html">RefreshIndicator</a> </td>
       <td>This widget supports the Material <em>swipe to refresh</em> idiom.<br>
-      Flutter SDK libary: <a href="https://docs.flutter.io/flutter/material/material-library.html">material</a>
+      Flutter library: <a href="https://docs.flutter.io/flutter/material/material-library.html">material</a>
       </td>
     </tr>
     <tr>
       <td><a href="https://docs.flutter.io/flutter/material/Scaffold-class.html">Scaffold</a> </td>
       <td>This widget implements the basic Material Design visual layout structure and provides APIs for showing drawers, snack bars, and bottom sheets.<br>
-      Flutter SDK libary: <a href="https://docs.flutter.io/flutter/material/material-library.html">material</a>
+      Flutter library: <a href="https://docs.flutter.io/flutter/material/material-library.html">material</a>
       </td>
     </tr>
     <tr>
       <td><a href="https://docs.flutter.io/flutter/material/SnackBar-class.html">SnackBar</a> </td>
       <td>This widget is a lightweight message with an optional action which briefly displays at the bottom of the screen. To display a snack bar, call <code>Scaffold.of(context).showSnackBar()</code>, passing an instance of <code>SnackBar</code> that describes the message.<br>
-      Flutter SDK libary: <a href="https://docs.flutter.io/flutter/material/material-library.html">material</a>
+      Flutter library: <a href="https://docs.flutter.io/flutter/material/material-library.html">material</a>
       </td>
     </tr>
     <tr>
       <td><a href="https://docs.flutter.io/flutter/material/TabBar-class.html">TabBar</a> </td>
       <td>This widget is a Material Design widget that displays a horizontal row of tabs.<br>
-      Flutter SDK libary: <a href="https://docs.flutter.io/flutter/material/material-library.html">material</a>
+      Flutter library: <a href="https://docs.flutter.io/flutter/material/material-library.html">material</a>
       </td>
     </tr>
     <tr>
       <td><a href="https://docs.flutter.io/flutter/material/TextField-class.html">TextField</a> </td>
       <td>This widget is a Material Design text field that lets a user enter text, either with the hardware keyboard or with an onscreen keyboard. <br>
-      Flutter SDK libary: <a href="https://docs.flutter.io/flutter/material/material-library.html">material</a>
+      Flutter library: <a href="https://docs.flutter.io/flutter/material/material-library.html">material</a>
       </td>
     </tr>
     <tr>
       <td><a href="https://docs.flutter.io/flutter/material/ExpansionTile-class.html">ExpansionTile</a> </td>
       <td>This widget is a single-line <a href="https://docs.flutter.io/flutter/material/ListTile-class.html">ListTile</a> with with a trailing button that expands or collapses the tile to reveal or hide the children. <br>
-      Flutter SDK libary: <a href="https://docs.flutter.io/flutter/material/material-library.html">material</a>
+      Flutter library: <a href="https://docs.flutter.io/flutter/material/material-library.html">material</a>
       </td>
     </tr>
 	</tbody>

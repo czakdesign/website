@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Flutter animation concepts"
-permalink: /animations/concepts.html
+permalink: /animations/concepts/
 ---
 
 * TOC Placeholder
@@ -17,18 +17,30 @@ Animation is the movement of an object or a change over time—like a fade in or
 
 Whenever the animation’s object value changes, the animation object notifies all the listeners (that were added with `addListener`). Typically, a `State` object that listens to an animation will call `setState` in its listener callback to notify the widget system that it needs to rebuild with the new value of the animation.
 
-> insert image/representation of Animation>listerners>state>build>implicit/transition/explicit
+There are three Flutter widgets that help animation widgets rebuild when a state change occurs.  
 
-There are three Flutter SDK widgets that help animation widgets rebuild when a state change occurs.
-![Flutter animations](images/code_complexity4.png)
+<div>
+<table class="table" width="100%">
+  <col width="35%">
+  <col width="65%">
+	<tbody>
+    <tr>
+      <td><img src="/animations/images/build_widgets2.png" alt="Flutter animation build widgets"></td>
+      <td>
+      <ul>
+      <li> <code>ImplicitlyAnimatedWidget</code> is an abstract widget used to build implicit widgets that gradually change their values over a period of time. This widget is already included in Flutter implicit animations so you don't need to add it to your animation unless you are building a reusable implicit animation widget.</li>
+      <li><code>AnimatedWidget</code> is a widget that rebuilds when the given <code>Listenable</code> changes value. This widget is already in Flutter transition animations. You'll need to add it to your animation if you are building a reusabe transition animation widget.</li>
+      <li><code>AnimatedBuilder</code> is used in Flutter explicit animations that include an animation as part of a larger build function. If you are building an explicit animation,  you need to use <code>AnimatedBuilder</code> to build your animation.</li>
+      </ul>
+      </td>
+    </tr>
+   </tbody>
+  </table>
+</div>
 
-* `ImplicitlyAnimatedWidget` is an abstract widget used to build implicit widgets that gradually change their values over a period of time. This widget is already included in Flutter SDK implicit animations so you don't need to add it to your animation unless you are building a reusable implicit animation widget.
-* `AnimatedWidget` is a widget that rebuilds when the given `Listenable` changes value. This widget is already in Flutter SDK transition animations. You'll need to add it to your animation if you are building a reusabe transition animation widget.
-* `AnimatedBuilder` is used in Flutter explicit animations that include an animation as part of a larger build function. If you are building an explicit animation,  you need to use `AnimatedBuilder` to build your animation.
+Animations also provide an `AnimationStatus` enum which indicates animation status: completed, dismissed, forward, and reverse. Whenever the animation’s status changes, the animation notifies all the listeners that were added with `addStatusListener`. Typically, animations start out in the dismissed status, which means they’re at the beginning of their range. For example, animations that progress from the 0.0 to 1.0 value range are dismissed when their value returns to 0.0. When the animation reaches the end of its range, the animation reaches the completed status.
 
-Animations also provide an `AnimationStatus` enum which indicates animation status. Whenever the animation’s status changes, the animation notifies all the listeners that were added with `addStatusListener`. Typically, animations start out in the dismissed status, which means they’re at the beginning of their range. For example, animations that progress from the 0.0 to 1.0 value range are dismissed when their value returns to 0.0. When the animation reaches the end of its range, the animation reaches the completed status.
-
-The animation system in Flutter is based on typed Animation objects. Widgets can either incorporate these animations in their build functions directly by reading their current value and listening to their state changes or they can use the animations as the basis of more elaborate animations that they pass along to other widgets.
+The animation system in Flutter is based on typed `Animation` objects. Widgets can either incorporate these animations in their build functions directly by reading their current value and listening to their state changes or they can use the animations as the basis of more elaborate animations that they pass along to other widgets.
 
 To summarize how it works:
 * Animations are objects with a time dependent value.  
@@ -39,10 +51,54 @@ To summarize how it works:
 * The `Animation<T>` class is an abstract class.  
 
 
-## Essential background concepts  
-Flutter animation is built upon basic Flutter and Dart concepts such as the `StatefulWidget` and the `StatelessWidget` and working with the `main.dart` and `pubspec.yaml` files. Be sure to review the information in [A Tour of the Flutter Widget Framework](https://flutter.io/widgets-intro/) for important basic information you'll need to build your app. And if you haven't already followed the introductory codelabs, you might want to start with [Write Your First Flutter App, part 1](https://codelabs.developers.google.com/codelabs/first-flutter-app-pt1/#0) and [Write Your First flutter App, part 2](https://codelabs.developers.google.com/codelabs/first-flutter-app-pt2/#0).
 
-The [Material Design](https://material.io/design/motion/understanding-motion.html) motion concepts provide professional guidance to help with your animation designs so that when you add animation, it makes the UI expressive and easy to use. It's important to make sure that your animation is informative, focused, and expressive so that it doesn't interfere or detract from the function of your app.  When you're planning your animation, check out the Material Design principals of motion. You can also find helpful information about using  [Material](/widgets/material/) components on the Flutter website.   
+
+## Essential background concepts  
+Flutter animation is built upon basic Flutter and Dart concepts such as the `StatefulWidget` and the `StatelessWidget` and working with the `main.dart` and `pubspec.yaml` files. You can find important basic information in the following resources.  
+* [A Tour of the Flutter Widget Framework](https://flutter.io/widgets-intro/)  
+* Introductory codelabs, you might want to start with [Write Your First Flutter App, part 1](https://codelabs.developers.google.com/codelabs/first-flutter-app-pt1/#0) and [Write Your First flutter App, part 2](https://codelabs.developers.google.com/codelabs/first-flutter-app-pt2/#0).
+
+### Material Design
+
+The [Material Design](https://material.io/design/motion/understanding-motion.html) motion concepts provide professional guidance to help with your animation designs so that when you add animation, it makes the UI expressive and easy to use. It's important to make sure that your animation is informative, focused, and expressive so that it doesn't interfere or detract from the function of your app.  When you're planning your animation, check out the [Material Design principals of motion](https://material.io/design/motion/understanding-motion.html). You can also find helpful information about using  [Material](/widgets/material/) components on the Flutter website.  
+
+### Dart language basics
+Although you don't need to be a Dart programmer to create a Flutter mobile app, you can find helpful information on the [Dart programming language](https://www.dartlang.org/) website and in the [Dart Language Tour](https://www.dartlang.org/guides/language/language-tour).  
+
+For example, Dart uses cascade (`..`) notation. Method cascading is a syntax that calls multiple methods on the same object. The example below shows `..addListener()` which means that the `addListener()`
+method is called with the return value from `animate()`.  
+
+<!-- skip -->
+{% prettify dart %}
+```Dart
+[[highlight]]animation = tween.animate(controller)[[/highlight]]
+          [[highlight]]..addListener(()[[/highlight]] {
+            setState(() {
+              // the animation object’s value is the changed state
+            });
+          });
+```
+{% endprettify %}  
+
+This code is equivalent to:  
+
+<!-- skip -->
+{% prettify dart %}
+```Dart
+[[highlight]]animation = tween.animate(controller);[[/highlight]]
+[[highlight]]animation.addListener(()[[/highlight]] {
+            setState(() {
+              // the animation object’s value is the changed state
+            });
+          });
+```
+{% endprettify %}
+
+In addition to function calls, cascade notation allows you to access fields on that same object. This often saves you the step of creating a temporary variable and allows you to write more fluid code.
+
+You can learn more about cascade notation in the
+[Dart Language Tour.](https://www.dartlang.org/guides/language/language-tour)
+
 
 ## Animation<T\> class
 The primary building block of Flutter animation is the `Animation<T>` class. The Animation object is a core class in Flutter’s animation library that interpolates the values used to guide an animation.  The `Animation<T>` abstract class provides a value of a given type, a concept of the animation direction, the animation status, and a listener interface to register callbacks that are invoked when the value or status changes.
@@ -94,7 +150,7 @@ The `AnimationController` manages the animation and it’s the main child class 
 * Define the upperBound and lowerBound values of an animation.
 * Create a fling animation effect using a physics simulation.
 
-For explicit animations, you build an `AnimationController`. For implicit and transition animations, the `AnimationController` is already defined and provided for you in the Flutter SDK widgets so you only need to provide a few parameters such as duration and curve.
+For explicit animations, you build an `AnimationController`. For implicit and transition animations, the `AnimationController` is already defined and provided for you in the Flutter widgets so you only need to provide a few parameters such as duration and curve.
 
 `AnimationController` is an `Animation` object that can be used wherever an `Animation` object is needed. It is derived from `Animation<double>`, and by default, it linearly produces values that range from 0.0 to 1.0 during a specified duration. A new value is produced whenever the hardware is ready for a new frame. The value generation is tied to the screen refresh, so typically 60 numbers are generated per second. After each value is generated, each Animation object calls the attached `Listener` objects.
 
@@ -161,27 +217,39 @@ The status is defined by an enum with four states:
 
 ## AnimatedBuilder
 
-`AnimatedBuilder` is used for complex, explicit widgets where an animation is included in a larger build function. Use `AnimatedBuilder` widget to describe an animation as part of a build method for another widget.
+`AnimatedBuilder` is used for complex, explicit widgets where an animation is included in a larger build function. Use `AnimatedBuilder` widget to describe an animation as part of a build method for another widget.  
 
 ## AnimatedContainer
-The `AnimatedContainer` is a container that gradually changes its values over a period of time. The `AnimatedContainer` automatically animates between the old and new values of properties when they change using the specified `curve` and `duration`. Properties that are null are not animated.
+The `AnimatedContainer` is a container that gradually changes its values over a period of time. The `AnimatedContainer` automatically animates between the old and new values of properties when they change using the specified `curve` and `duration`. Properties that are null are not animated.  <br>
 
-The `AnimatedContainer` widget is an example of a simple implicit animation between different parameters. It has an internal `AnimationController` that has already been defined and provided for you in the Flutter SDK.  
-
+The `AnimatedContainer` widget is an example of a simple implicit animation between different parameters. It has an internal `AnimationController` that has already been defined in the [widgets](https://docs.flutter.io/flutter/widgets/widgets-library.html) library.  
 
 ## AnimatedWidget
 The `AnimatedWidget` class allows you to separate the widget code from the animation code in the `setState()` call. `AnimatedWidget` doesn’t need to maintain a State object to hold the animation.
 
 Use `AnimatedWidget` when you want to create or reuse a transition animation such as `FadeTransition` or `SizeTransition`.
 
-For more information, see [Flutter transition animations](/animations/transitions_widgets.html)
+For more information, see [Flutter transition animations](/animations/transition_widgets/)
 
 ## Curves
-The `Curves` class defines an array of commonly used curves that you can use with a `CurvedAnimation`. The `Curve` abstract class maps doubles in the range 0.0-1.0 to doubles in the range 0.0-1.0.
-Curve classes are stateless and immutable.
-
-
 A `CurvedAnimation` defines the animation progress as a non-linear curve.
+
+<table cellpadding="10">
+  <tr>
+    <td style="width:20%">
+    <a href="" onMouseOver="document.MyImage1.src='/animations/images/curve2.gif';" onMouseOut="document.MyImage1.src='/animations/images/curve2.png';">
+    <img src="/animations/images/curve2.png" name="MyImage1" height="180" width="160" name="MyImage1">
+    </a></td>
+      <td style="width:80%">
+      <ul>
+      <li> The Curves class defines an array of commonly used curves that you can use with a CurvedAnimation.</li>
+      <li> The Curve abstract class maps doubles in the range 0.0-1.0 to doubles in the range 0.0-1.0.</li>
+      <li>Curve classes are stateless and immutable.</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
 ```Dart
 final CurvedAnimation curve =
     new CurvedAnimation(parent: controller, curve: Curves.easeIn);
@@ -241,9 +309,12 @@ The widget test framework `WidgetTester` object can be used as a ticker provider
 
 ## Tweens
 
-Tweening or inbetweening, is the process of generating intermediate frames between two images, called key frames, to give the appearance that the first image transforms smoothly from one key frame to the next key frame. Inbetweens are the drawings which create the illusion of motion. The sequence of frames is called a tween For example, a tween might define an interpolation from red to blue, or from 0 to 255.
+Tweening or inbetweening, is the process of generating intermediate frames between two images, called key frames, to give the appearance that the first image transforms smoothly from one key frame to the next key frame. Inbetweens are the drawings which create the illusion of motion. The sequence of frames is called a tween For example, a tween might define an interpolation from blue to yellow, or from 0 to 255.
 
-In a tween animation, the begin and end points are defined, as well as a timeline (duration), and a curve that defines the timing and speed of the transition. The Flutter SDK framework calculates how to transition from the beginning point to the end point.  Flutter’s animation widgets enables you to specify objects in an image and define how they should move and change during the tweening process. While some widgets can be used to manually render or customize frames (explicit animations), the Flutter SDK also includes widgets that you can use to automatically render the tweens (implicit and transition widgets).
+![Tweening](/animations/images/tween_example.png)
+<br>
+
+In a tween animation, the begin and end points are defined, as well as a timeline (duration), and a curve that defines the timing and speed of the transition. The Flutter framework calculates how to transition from the beginning point to the end point.  Flutter’s animation widgets enables you to specify objects in an image and define how they should move and change during the tweening process. While some widgets can be used to manually render or customize frames (explicit animations), Flutter also includes widgets that you can use to automatically render the tweens (implicit and transition widgets).
 
 A `Tween` is a stateless and immutable object that takes a begin value and an end value of an output type `<T>` and a way to interpolate (leap) between the begin and end values. `Tween` classes are stateless and immutable. The sole job of a `Tween` is to define a mapping from an input range to an output range. The input range is commonly 0.0 to 1.0, but that’s not a requirement. A Tween inherits from `Animatable<T>`, not from `Animation<T>`. An Animatable, like Animation, isn't required to output a double. For example, `ColorTween` specifies a progression between two colors and a `CurveTween` transforms the value of the given animation by a given curve.
 

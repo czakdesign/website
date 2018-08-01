@@ -1,16 +1,15 @@
 ---
 layout: page
-title: "Flutter transition animations"
-permalink: /animations/transitions_widgets.html
+title: "Flutter Transition Animations"
+permalink: /animations/transition_widgets/
 ---
 
 * TOC Placeholder
 {:toc}
 
-Transition animations implement the abstract class `AnimatedWidget`. The `AnimatedWidget` class allows you to separate the widget code from the animation code in the `setState()` call. The `AnimatedWidget` class doesn’t need to maintain a `State` object to hold the animation. Use the  `AnimatedWidget` helper class (instead of `addListener()` and `setState()`) to create a reusable transition animation widget.
+Transition animations implement the abstract class `AnimatedWidget`. The `AnimatedWidget` class allows you to separate the widget code from the animation code in the `setState()` call. The `AnimatedWidget` class doesn’t need to maintain a `State` object to hold the animation. Use the  `AnimatedWidget` helper class (instead of `addListener()` and `setState()`) to create a reusable transition animation widget.  
 
 < additional info on transition widgets >
-
 
 ## Using a transition animation widget
 
@@ -20,7 +19,7 @@ Transition animations implement the abstract class `AnimatedWidget`. The `Animat
   <col width="65%">
 	<tbody>
     <tr>
-      <td><img src="images/transitions.png" alt="Transition animation widgets"></td>
+      <td><img src="/animations/images/transitions.png" alt="Transition animation widgets"></td>
       <td> < Revise for a transition widget example >   
       1. Create your <code>StatefulWidget</code>.<br>
       2. Create the <code>State</code> class to hold the animation object and the _transition_  animation widget.<br>
@@ -32,20 +31,21 @@ Transition animations implement the abstract class `AnimatedWidget`. The `Animat
   </table>
 </div>
 
+
 To create your own reusable transition animations, create a widget that extends `AnimatedWidget`.
 
-For more complex or customized animations, you can build [Explicit animations](/animations/explicit_widgets.html) using the  `AnimationController` class.  
+For more complex or customized animations, you can build [Explicit animations](/animations/explicit_widgets/) using the  `AnimationController` class.  
 
 ## Transition animation examples  
-The `animationexample` and `animationexample` are two transition widgets included in the Flutter SDK.  
+The `animationexample` and `animationexample` are two transition widgets included in the widget package.  
 
 ### < Transition animation > example 1
 <!-- The `AnimatedOpacity` implicit widget automatically transitions a child's opacity over a given duration whenever the specified opacity changes. -->
 <table cellpadding="10">
   <tr>
     <td style="width:20%">
-    <a href="" onMouseOver="document.MyImage1.src='images/AnimatedOpacity_blue.gif';" onMouseOut="document.MyImage1.src='images/placeholder_image.png';">
-    <img src="images/placeholder_image.png" name="MyImage1" height="180" width="160" name="MyImage1">
+    <a href="" onMouseOver="document.MyImage1.src='/animations/images/AnimatedOpacity_blue.gif';" onMouseOut="document.MyImage1.src='/animations/images/placeholder_image.png';">
+    <img src="animations/images/placeholder_image.png" name="MyImage1" height="180" width="160" name="MyImage1">
     </a></td>
     <td>
     The <code>animationexample</code> transition widget automatically < description > .<br>Mouseover the image to view the animation.
@@ -140,8 +140,7 @@ add the code for the transition widget
 
 ## Transition animations widgets
 
-
-The Flutter SDK includes the following transition animation widgets. These are included in the <a href="https://docs.flutter.io/flutter/widgets/widgets-library.html">widgets</a> Flutter SDK libary.
+The Flutter SDK <a href="https://docs.flutter.io/flutter/widgets/widgets-library.html">widgets</a> library includes the following transition animation widgets.
 
 <div>
 <table class="table" width="100%">

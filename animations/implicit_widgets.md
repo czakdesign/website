@@ -1,18 +1,16 @@
 ---
 layout: page
-title: "Flutter implicit animations"
-permalink: /animations/implicit_widgets.html
+title: "Flutter Implicit Animations"
+permalink: /animations/implicit_widgets/
 ---
 
 * TOC Placeholder
 {:toc}
 
 
-If you’re new to Flutter or new to animation, consider starting with the built-in Flutter implicit widgets. Implicit animations are useful when you want to quickly add an animation without having to write a lot of animation code because the Flutter SDK implicit widgets already include the `AnimationController`, the ticker provider, the listener, and other animations elements.
+If you’re new to Flutter or new to animation, consider starting with the built-in Flutter implicit widgets. Implicit animations are useful when you want to quickly add an animation without having to write a lot of animation code because the Flutter implicit widgets already include the `AnimationController`, the ticker provider, the listener, and other animations elements.
 
-Implicit animations are distinct from explicit animations which involve building the animation action using `AnimationController`. And implicit animations are different from transition widgets since you don't need to create an animation widget using `AnimatedWidget`, you simply use an existing implicit animation widget such as `AnimatedOpacity` or `AnimatedIcon`.
-
-
+ Implicit animations start immediately when a property value changes—they take the property value change as an implicit command to start the animation.
 
 ## Using an implicit animation widget
 
@@ -22,7 +20,7 @@ Implicit animations are distinct from explicit animations which involve building
   <col width="65%">
 	<tbody>
     <tr>
-      <td><img src="images/implicit.png" alt="Implicit animation widgets"></td>
+      <td><img src="/animations/images/implicit.png" alt="Implicit animation widgets"></td>
       <td>
       1. Create your <code>StatefulWidget</code>.<br>
       2. Create the <code>State</code> class to hold the animation object and the implicit animation widget.<br>
@@ -36,18 +34,18 @@ Implicit animations are distinct from explicit animations which involve building
 
 To create your own reusable implicit animations, create a widget that extends `ImplicitlyAnimatedWidget`.
 
-For more complex or customized animations, you can use a subclass of `AnimatedWidget` to create [Transition animations](/animations/transitions_widgets.html) such as the `DecoratedBoxTransition` or you can build your own [Explicit animations](/animations/explicit_widgets.html) using the `AnimationController`.  
+For more complex or customized animations, you can use a subclass of `AnimatedWidget` to create [Transition animations](/animations/transition_widgets/) such as the `DecoratedBoxTransition` or you can build your own [Explicit animations](/animations/explicit_widgets/) using the `AnimationController`.  
 
 ## Implicit animation examples  
-The `AnimatedOpacity` and `AnimatedCrossFade` are two implicit widgets included in the Flutter SDK.  
+The `AnimatedOpacity` and `AnimatedCrossFade` are two implicit widgets included in the [widget](https://docs.flutter.io/flutter/widgets/widgets-library.html) library.  
 
 ### AnimatedOpacity example
 <!-- The `AnimatedOpacity` implicit widget automatically transitions a child's opacity over a given duration whenever the specified opacity changes. -->
 <table cellpadding="10">
   <tr>
     <td style="width:20%">
-    <a href="" onMouseOver="document.MyImage1.src='images/AnimatedOpacity_blue.gif';" onMouseOut="document.MyImage1.src='images/AnimatedOpacity_blue.png';">
-    <img src="images/AnimatedOpacity_blue.png" name="MyImage1" height="180" width="160" name="MyImage1">
+    <a href="" onMouseOver="document.MyImage1.src='/animations/images/AnimatedOpacity_blue.gif';" onMouseOut="document.MyImage1.src='/animations/images/AnimatedOpacity_blue.png';">
+    <img src="/animations/images/AnimatedOpacity_blue.png" name="MyImage1" height="180" width="160" name="MyImage1">
     </a></td>
     <td>
     The <code>AnimatedOpacity</code> implicit widget automatically transitions a child's opacity over a given duration whenever the specified opacity changes.<br>Mouseover the image to view the animation.
@@ -55,19 +53,19 @@ The `AnimatedOpacity` and `AnimatedCrossFade` are two implicit widgets included 
   </tr>
 </table>
 
-<!-- <a href="" onMouseOver="document.MyImage1.src='images/AnimatedOpacity_blue.gif';" onMouseOut="document.MyImage1.src='images/AnimatedOpacity_blue.png';">
-<img src="images/AnimatedOpacity_blue.png" name="MyImage1" height="180" width="160" name="MyImage1">
+<!-- <a href="" onMouseOver="document.MyImage1.src='/animations/images/AnimatedOpacity_blue.gif';" onMouseOut="document.MyImage1.src='/animations/images/AnimatedOpacity_blue.png';">
+<img src="/animations/images/AnimatedOpacity_blue.png" name="MyImage1" height="180" width="160" name="MyImage1">
 </a>
 Mouseover the image to view the animation using the <code>AnimatedOpacity</code> implicit widget. -->
 
 <!-- <div>
-<img src="images/AnimatedOpacity_blue.png" name="img" height="180" width="160">
+<img src="/animations/images/AnimatedOpacity_blue.png" name="img" height="180" width="160">
 
  <script>
  imgOn2 = new Image;
  imgOff2 = new Image;
- imgOn2.src = "images/AnimatedOpacity_blue.gif";
- imgOff2.src = "images/AnimatedOpacity_blue.png";
+ imgOn2.src = "/animations/images/AnimatedOpacity_blue.gif";
+ imgOff2.src = "/animations/images/AnimatedOpacity_blue.png";
  </script>
 
  <a href="#C4" onClick="document.img.src=imgOn2.src;">▶︎</a>
@@ -137,8 +135,8 @@ void main() {
 <table cellpadding="10">
   <tr>
     <td style="width:20%">
-    <a href="" onMouseOver="document.MyImage.src='images/AnimatedCrossFade_blue.gif';" onMouseOut="document.MyImage.src='images/AnimatedCrossFade_blue.png';">
-    <img src="images/AnimatedCrossFade_blue.png" name="MyImage" height="180" width="160" name="MyImage">
+    <a href="" onMouseOver="document.MyImage.src='/animations/images/AnimatedCrossFade_blue.gif';" onMouseOut="document.MyImage.src='/animations/images/AnimatedCrossFade_blue.png';">
+    <img src="/animations/images/AnimatedCrossFade_blue.png" name="MyImage" height="180" width="160" name="MyImage">
     </a></td>
     <td>The <code>AnimatedCrossFade</code> implicit widget automatically cross-fades between two children and animates itself between their sizes.<br>
     Mouseover the image to view the animation.
@@ -147,23 +145,23 @@ void main() {
 </table>
 
 
-<!-- <a href="" onMouseOver="document.MyImage.src='images/AnimatedCrossFade_blue.gif';" onMouseOut="document.MyImage.src='images/AnimatedCrossFade_blue.png';">
-<img src="images/AnimatedCrossFade_blue.png" name="MyImage" height="180" width="160" name="MyImage">
+<!-- <a href="" onMouseOver="document.MyImage.src='/animations/images/AnimatedCrossFade_blue.gif';" onMouseOut="document.MyImage.src='/animations/images/AnimatedCrossFade_blue.png';">
+<img src="/animations/images/AnimatedCrossFade_blue.png" name="MyImage" height="180" width="160" name="MyImage">
 </a>
 Mouse over the image to view the animation using the <code>AnimatedCrossFade</code> implicit widget. -->
 
-<!-- onMouseOut="document.MyImage.src='images/AnimatedCrossFade_orig.png';">
-<img src="images/AnimatedCrossFade_orig.png" name="MyImage" height="180" widgth="160"> -->
+<!-- onMouseOut="document.MyImage.src='/animations/images/AnimatedCrossFade_orig.png';">
+<img src="/animations/images/AnimatedCrossFade_orig.png" name="MyImage" height="180" widgth="160"> -->
 
-<!-- <img src="images/AnimatedCrossFade_orig.png" name="img2" height="180" width="160">
+<!-- <img src="/animations/images/AnimatedCrossFade_orig.png" name="img2" height="180" width="160">
  <script>
  img2On = new Image;
  img2Off = new Image;
- img2On.src = "images/AnimatedCrossFade_blue.gif";
- img2Off.src = "images/AnimatedCrossFade_orig.png";
+ img2On.src = "/animations/images/AnimatedCrossFade_blue.gif";
+ img2Off.src = "/animations/images/AnimatedCrossFade_orig.png";
  </script>
 
- <a href="#" onmouseover="document.img2.src=img2On.src;"><img src="images/AnimatedCrossFade_orig.png" name="img2" height="180" width="160"></a>
+ <a href="#" onmouseover="document.img2.src=img2On.src;"><img src="/animations/images/AnimatedCrossFade_orig.png" name="img2" height="180" width="160"></a>
  <!-- <a href="#" onmouseout="document.img2.src=img2Off.src;">◼︎</a> -->
 
 
@@ -236,8 +234,7 @@ void main() {
 
 ## Implicit animations widgets
 
-
-The Flutter SDK includes the following implicit animation widgets.
+The Flutter <a href="https://docs.flutter.io/flutter/widgets/widgets-library.html">widgets</a> and [material](https://docs.flutter.io/flutter/material/material-library.html) libraries include the following implicit animation widgets.
 
 <div>
 <table class="table" width="100%">
@@ -252,21 +249,20 @@ The Flutter SDK includes the following implicit animation widgets.
 	<tbody>
 		<tr>
 			<td><a href="https://docs.flutter.io/flutter/widgets/AnimatedAlign-class.html">AnimatedAlign</a> </td>
-			<td>This widget is the animated version of <a href="https://docs.flutter.io/flutter/widgets/Align-class.html">Align</a> which automatically transitions the child's position over a given duration whenever the alignment changes.<br>
-			Flutter SDK libary: <a href="https://docs.flutter.io/flutter/widgets/widgets-library.html">widgets</a>
+			<td>This widget is the animated version of <a href="https://docs.flutter.io/flutter/widgets/Align-class.html">Align</a> which automatically transitions the child's position over a given duration whenever the alignment changes.
+      <!-- <br>
+			Flutter SDK libary: <a href="https://docs.flutter.io/flutter/widgets/widgets-library.html">widgets</a> -->
       </td>
 		</tr>
 		<tr>
 			<td><a href="https://docs.flutter.io/flutter/widgets/AnimatedContainer-class.html">AnimatedContainer</a> </td>
 			<td>This widget automatically animates between the old and new values of properties, such as a background color, when they change using the provided curve and duration. Properties that are null are not animated.
-
- <br>
-			Flutter SDK libary: <a href="https://docs.flutter.io/flutter/widgets/widgets-library.html">widgets</a> </td>
+ </td>
 		</tr>
 		<tr>
 			<td><a href="https://docs.flutter.io/flutter/widgets/AnimatedCrossFade-class.html">AnimatedCrossFade</a> </td>
 			<td>This widget automatically cross-fades between two children.<br>
-			Flutter SDK libary: <a href="https://docs.flutter.io/flutter/widgets/widgets-library.html">widgets</a> </td>
+	 </td>
 		</tr>
 		<tr>
 			<td><a href="https://docs.flutter.io/flutter/widgets/AnimatedDefaultTextStyle-class.html">AnimatedDefaultTextStyle</a> </td>

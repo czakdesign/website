@@ -31,7 +31,7 @@ For highly customizable animations, Flutter provides explicit animation widgets.
 
 ### Transition animation widgets
 
-*Transition animations*   NEED - description of transition widgets - why would you use transition instead of implicit
+*Transition animations*   NEED - description of transition widgets - what are they and why would you use transition instead of implicit or explicit animations.
 
 <br>
 For more information including a list of transition widgets, [Transition animations](/animations/transition_widgets).  
