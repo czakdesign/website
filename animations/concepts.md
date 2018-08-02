@@ -309,10 +309,10 @@ The widget test framework `WidgetTester` object can be used as a ticker provider
 
 ## Tweens
 
-Tweening or inbetweening, is the process of generating intermediate frames between two images, called key frames, to give the appearance that the first image transforms smoothly from one key frame to the next key frame. Inbetweens are the drawings which create the illusion of motion. The sequence of frames is called a tween For example, a tween might define an interpolation from blue to yellow, or from 0 to 255.
+Tweening or inbetweening, is the process of generating intermediate frames between two images, called key frames, to give the appearance that the first image transforms smoothly from one key frame to the next key frame. Inbetweens are the drawings which create the illusion of motion. The sequence of frames is called a tween For example, a tween might define an interpolation from blue to yellow, or from 0 to 255.  
 
-![Tweening](/animations/images/tween_example.png)
-<br>
+<p><img src="/animations/images/tween_example.png" alt="Tweening" />
+<br /></p>  
 
 In a tween animation, the begin and end points are defined, as well as a timeline (duration), and a curve that defines the timing and speed of the transition. The Flutter framework calculates how to transition from the beginning point to the end point.  Flutter’s animation widgets enables you to specify objects in an image and define how they should move and change during the tweening process. While some widgets can be used to manually render or customize frames (explicit animations), Flutter also includes widgets that you can use to automatically render the tweens (implicit and transition widgets).
 

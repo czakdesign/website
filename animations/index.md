@@ -18,7 +18,7 @@ Flutter animations widgets are *implicit*, *transition*, or *explicit* animation
 
 For highly customizable animations, Flutter provides explicit animation widgets. You can build your own explicit animations using the `AnimatedBuilder` or `TransitionBuilder` widgets.
 
-![Flutter animations](images/customization.png)
+![Widget customization level](images/customization.png)
 <br>
 
 
@@ -46,7 +46,7 @@ For more information including a list of transition widgets, [Transition animati
 ## Choosing an animation widget
 Choosing an animation widget depends on the customization that you need for your animation and whether there is an existing widget available for reuse. The table below shows the customizable elements in each animation type.
 
-![Flutter animations](images/animation_table4.png)
+![Choosing an animation table](images/animation_table4.png)
 <br>
 
 

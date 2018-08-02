@@ -37,18 +37,18 @@ To create your own reusable transition animations, create a widget that extends 
 For more complex or customized animations, you can build [Explicit animations](/animations/explicit_widgets/) using the  `AnimationController` class.  
 
 ## Transition animation examples  
-The `animationexample` and `animationexample` are two transition widgets included in the widget package.  
+The `RotationTransition` and `SlideTransition` are two transition animation widgets included in the widget package.  
 
-### < Transition animation > example 1
+### RotationTransition example
 <!-- The `AnimatedOpacity` implicit widget automatically transitions a child's opacity over a given duration whenever the specified opacity changes. -->
 <table cellpadding="10">
   <tr>
     <td style="width:20%">
-    <a href="" onMouseOver="document.MyImage1.src='/animations/images/AnimatedOpacity_blue.gif';" onMouseOut="document.MyImage1.src='/animations/images/placeholder_image.png';">
-    <img src="animations/images/placeholder_image.png" name="MyImage1" height="180" width="160" name="MyImage1">
+    <a href="" onMouseOver="document.MyImage.src='/animations/images/rotation_transition.gif';" onMouseOut="document.MyImage.src='/animations/images/rotation_transition.png';">
+    <img src="/animations/images/rotation_transition.png" name="MyImage" height="180" width="160">
     </a></td>
     <td>
-    The <code>animationexample</code> transition widget automatically < description > .<br>Mouseover the image to view the animation.
+    The <code>RotationTransition</code> widget automatically rotates a widget. <br>Mouseover the image to view the animation.
     </td>
   </tr>
 </table>
@@ -77,27 +77,137 @@ Mouseover the image to view the animation using the <code>AnimatedOpacity</code>
  <!-- <br>
  The `AnimatedOpacity` implicit widget automatically transitions a child's opacity over a given duration whenever the given opacity changes. Notice that the listeners, tickers, and other animation elements are *implied* so you don't need to add them. The `AnimatedOpacity` class extends `ImplicitlyAnimatedWidget` and those elements are already included in the `ImplicitlyAnimatedWidget` class. -->
 
-The code for the `animationexample` example is shown below. The `animationexample` widget extends the `AnimatedWidget` class and already includes the listeners, tickers, and other elements that define the animation.  
+The code for the `RotationTransition` example is shown below.   
 <!-- skip -->
 {% prettify dart %}
 ```Dart
 import 'package:flutter/material.dart';
 
-add the code for the transition widget
+void main() {
+  runApp(
+    new MaterialApp(
+      home: new HomePage(),
+    ),
+  );
+}
+
+class HomePage extends StatefulWidget {
+  @override
+  HomePageState createState() => new HomePageState();
+}
+
+class HomePageState extends State<HomePage> {
+  bool selected = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return new RotationTransitionExample(
+      selected: selected,
+      onTap: (bool value) {
+        setState(() {
+          selected = value;
+        });
+      },
+    );
+  }
+}
+
+class RotationTransitionExample extends StatefulWidget {
+  const RotationTransitionExample({
+    Key key,
+    this.selected = false,
+    this.onTap,
+  }) : super(key: key);
+
+  final ValueChanged<bool> onTap;
+  final bool selected;
+
+  @override
+  RotationTransitionExampleState createState() => new RotationTransitionExampleState();
+}
+
+class RotationTransitionExampleState extends State<RotationTransitionExample>
+// The TickerProviderStateMixin makes it so that this state object can
+// be used as the vsync for the AnimationController.
+    with TickerProviderStateMixin<RotationTransitionExample> {
+  AnimationController _controller;
+  Animation<double> _rotationAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    // Create an animation controller, and rebuild the widget tree when we
+    // listen to it, in order to generate frames.
+    _controller = new AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    )..addListener(() {
+      setState(() {
+        // The value of the animation controller has changed, so we need to
+        // rebuild the widget tree.
+      });
+    });
+
+    // Set up the animation curve that we want to use.
+    _rotationAnimation = new CurvedAnimation(
+      parent: _controller,
+      // There are many different types of curves.
+      curve: Curves.elasticOut,
+    );
+  }
+
+  @override
+  void didUpdateWidget(RotationTransitionExample oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.selected == widget.selected) {
+      return;
+    }
+    // Change the direction of the animation based on whether selected is true
+    // or not.  Note that this means if you tap it twice quickly, the animation
+    // will only just get started, and reverse to the original position.
+    widget.selected ? _controller.forward() : _controller.reverse();
+  }
+
+  @override
+  void dispose() {
+    // The controller must be disposed of, so it is usually owned by a
+    // StatefulWidget.
+    _controller?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          widget.onTap(!widget.selected);
+        });
+      },
+      child: Container(
+        color: Colors.white,
+        child: new RotationTransition(
+          turns: _rotationAnimation,
+          child: const FlutterLogo(),
+        ),
+      ),
+    );
+  }
+}
 
 ```
 {% endprettify %}
 
-### < Transition animation > example 2
+### SlideTransition example
 <!-- The `AnimatedOpacity` implicit widget automatically transitions a child's opacity over a given duration whenever the specified opacity changes. -->
 <table cellpadding="10">
   <tr>
     <td style="width:20%">
-    <a href="" onMouseOver="document.MyImage1.src='images/AnimatedOpacity_blue.gif';" onMouseOut="document.MyImage1.src='images/placeholder_image.png';">
-    <img src="images/placeholder_image.png" name="MyImage1" height="180" width="160" name="MyImage1">
+    <a href="" onMouseOver="document.MyImage2.src='/animations/images/slide_transition.gif';" onMouseOut="document.MyImage2.src='/animations/images/slide_transition.png';">
+    <img src="/animations/images/slide_transition.png" name="MyImage2">
     </a></td>
     <td>
-    The <code>animationexample</code> transition widget automatically < description > .<br>Mouseover the image to view the animation.
+    The <code>SlideTransition</code> transition widget automatically animates the position of a widget relative to its normal position .<br>Mouseover the image to view the animation.
     </td>
   </tr>
 </table>
@@ -126,13 +236,140 @@ Mouseover the image to view the animation using the <code>AnimatedOpacity</code>
  <!-- <br>
  The `AnimatedOpacity` implicit widget automatically transitions a child's opacity over a given duration whenever the given opacity changes. Notice that the listeners, tickers, and other animation elements are *implied* so you don't need to add them. The `AnimatedOpacity` class extends `ImplicitlyAnimatedWidget` and those elements are already included in the `ImplicitlyAnimatedWidget` class. -->
 
-The code for the `animationexample` example is shown below. The `animationexample` widget extends the `AnimatedWidget` class and already includes the listeners, tickers, and other elements that define the animation.  
+The code for the `SlideTransition` example is shown below.  
 <!-- skip -->
 {% prettify dart %}
 ```Dart
 import 'package:flutter/material.dart';
 
-add the code for the transition widget
+void main() {
+  runApp(
+    new MaterialApp(
+      home: new HomePage(),
+    ),
+  );
+}
+
+class HomePage extends StatefulWidget {
+  @override
+  HomePageState createState() => new HomePageState();
+}
+
+class HomePageState extends State<HomePage> {
+  bool selected = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return new SlideTransitionExample(
+      selected: selected,
+      onTap: (bool value) {
+        setState(() {
+          selected = value;
+        });
+      },
+    );
+  }
+}
+
+class SlideTransitionExample extends StatefulWidget {
+  const SlideTransitionExample({
+    Key key,
+    this.selected = false,
+    this.onTap,
+  }) : super(key: key);
+
+  final ValueChanged<bool> onTap;
+  final bool selected;
+
+  @override
+  SlideTransitionExampleState createState() => new SlideTransitionExampleState();
+}
+
+class SlideTransitionExampleState extends State<SlideTransitionExample>
+// The TickerProviderStateMixin makes it so that this state object can
+// be used as the vsync for the AnimationController.
+    with TickerProviderStateMixin<SlideTransitionExample> {
+
+  // Because this animation doesn't just drive something that's a double,
+  // we need a Tween to do the mapping from a double to an Offset.
+  static final Tween<Offset> _offsetTween = new Tween<Offset>(
+    // Start with no offset.
+    begin: Offset.zero,
+    // End at this offset, which is down and to the right. The numbers are in
+    // multiples of the size of the child widget, so it'll travel half of a
+    // full width to the right, and a full height of the child down.
+    end: const Offset(0.5, 1.0),
+  );
+
+  AnimationController _controller;
+  Animation<Offset> _slideAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    // Create an animation controller, and rebuild the widget tree when we
+    // listen to it, in order to generate frames.
+    _controller = new AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    )..addListener(() {
+      setState(() {
+        // The value of the animation controller has changed, so we need to
+        // rebuild the widget tree.
+      });
+    });
+
+    // Use a curved animation to drive the Tween<Offset> to give interpolated
+    // values between the start and end of the Tween.
+    _slideAnimation = _offsetTween.animate(
+      new CurvedAnimation(
+        parent: _controller,
+        curve: Curves.fastOutSlowIn,
+      ),
+    );
+  }
+
+  @override
+  void didUpdateWidget(SlideTransitionExample oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.selected == widget.selected) {
+      return;
+    }
+    // Change the direction of the animation based on whether selected is true
+    // or not.  Note that this means if you tap it twice quickly, the animation
+    // will only just get started, and reverse to the original position.
+    widget.selected ? _controller.forward() : _controller.reverse();
+  }
+
+  @override
+  void dispose() {
+    // The controller must be disposed of, so it is usually owned by a
+    // StatefulWidget.
+    _controller?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          widget.onTap(!widget.selected);
+        });
+      },
+      child: Container(
+        color: Colors.white,
+        child: new SlideTransition(
+          position: _slideAnimation,
+          child: const Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: const FlutterLogo(size: 150.0),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 ```
 {% endprettify %}
