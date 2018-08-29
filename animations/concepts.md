@@ -10,7 +10,7 @@ permalink: /animations/concepts/
 
 This section describes the basic concepts behind the Flutter animation architecture.
 
-If you use Flutter's built-in implicit and transition widgets, you may not need to interact with all of the Flutter core animation concepts directly because most of the work required to code the animation is already done. But for more complex explicit animations, it's important to understand the animation concepts used to fine-tune and control your animations.
+If you use Flutter's built-in implicit and transition widgets, you may not need to interact with all of the Flutter core animation concepts directly because most of the work required to code the animation is already done. But for customized explicit animations, it's important to understand the animation concepts used to fine-tune and control your animations.
 
 ## How it works
 Animation is the movement of an object or a change over time—like a fade in or out, or a bounce. An animation represents a value of a specific type that can change over time—specifically over the lifetime of the animation. Most animation widgets receive an `Animation` object as a parameter, from which the animation widget reads the current value of the animation and listens for changes to that value. It listens for "state" changes.
@@ -25,7 +25,7 @@ There are three Flutter widgets that help animation widgets rebuild when a state
   <col width="65%">
 	<tbody>
     <tr>
-      <td><img src="/animations/images/build_widgets2.png" alt="Flutter animation build widgets"></td>
+      <td><img src="/animations/images/build_widgets3.png" alt="Flutter animation build widgets"></td>
       <td>
       <ul>
       <li> <code>ImplicitlyAnimatedWidget</code> is an abstract widget used to build implicit widgets that gradually change their values over a period of time. This widget is already included in Flutter implicit animations so you don't need to add it to your animation unless you are building a reusable implicit animation widget.</li>
@@ -55,12 +55,47 @@ To summarize how it works:
 
 ## Essential background concepts  
 Flutter animation is built upon basic Flutter and Dart concepts such as the `StatefulWidget` and the `StatelessWidget` and working with the `main.dart` and `pubspec.yaml` files. You can find important basic information in the following resources.  
-* [A Tour of the Flutter Widget Framework](https://flutter.io/widgets-intro/)  
+* [A Tour of the Flutter Widget Framework](/widgets-intro)  
 * Introductory codelabs, you might want to start with [Write Your First Flutter App, part 1](https://codelabs.developers.google.com/codelabs/first-flutter-app-pt1/#0) and [Write Your First flutter App, part 2](https://codelabs.developers.google.com/codelabs/first-flutter-app-pt2/#0).
 
 ### Material Design
 
-The [Material Design](https://material.io/design/motion/understanding-motion.html) motion concepts provide professional guidance to help with your animation designs so that when you add animation, it makes the UI expressive and easy to use. It's important to make sure that your animation is informative, focused, and expressive so that it doesn't interfere or detract from the function of your app.  When you're planning your animation, check out the [Material Design principals of motion](https://material.io/design/motion/understanding-motion.html). You can also find helpful information about using  [Material](/widgets/material/) components on the Flutter website.  
+The [Material Design](https://material.io/design/motion/understanding-motion.html) motion concepts provide professional guidance to help with your animation designs so that when you add animation, it makes the UI expressive and easy to use. It's important to make sure that your animation is informative and focused so that your animation doesn't interfere or detract from the function of your app. The Material Design resources can help you plan for your animation as well as understand the design concepts behind animations.<br>  
+When you're planning your animation, check out the [Material Design principals of motion](https://material.io/design/motion/understanding-motion.html). For example, you’ll find information about animation design concepts such as sequences or *easing* (acceleration over time) so that transitions don't look stiff and mechanical. Easing is a way to adjust an animation’s rate of change—easing allows transitioning elements to speed up and slow down, rather than moving at a constant rate. In the real world, things don’t start or stop moving instantaneously. They take time to speed up and slow down. Easing makes elements move as though influenced by natural forces like friction.</p>
+
+<a href="" onMouseOver="document.Easing.src='/animations/images/easing.gif';" onMouseOut="document.Easing.src='/animations/images/easing.png';">
+<img src="/animations/images/easing.png" name="Easing" height="100%" width="100%">
+</a>
+
+<!-- ![image](images/easing.png)
+
+<img src="/animations/images/easing.png" name="Easing" height="100%" width="100%"> -->
+
+This graph shows the easing of an element that remains visible throughout a transition. The y-axis shows the position and the x-axis shows the time.
+
+
+<!-- <div>
+<table class="table" width="100%">
+  <col width="55%">
+  <col width="45%">
+	<tbody>
+    <tr>
+    <td>
+    <a href="" onMouseOver="document.Easing.src='/animations/images/easing.gif';" onMouseOut="document.Easing.src='/animations/images/easing.png';">
+    <img src="/animations/images/easing.png" name="Easing">
+    </a></td>
+      <td>
+      <p>Easing is a way to adjust an animation’s rate of change—easing allows transitioning elements to speed up and slow down, rather than moving at a constant rate. In the real world, things don’t start or stop moving instantaneously. They take time to speed up and slow down. Easing makes elements move as though influenced by natural forces like friction.</p>
+      <p>This graph shows the easing of an element that remains visible throughout a transition.</p>
+      <p>The y-axis shows the position and the x-axis shows the time.</p>
+      </td>
+
+    </tr>
+   </tbody>
+  </table>
+</div> -->
+
+You can also find helpful information about using  [Material](/widgets/material/) components on the Flutter website.  
 
 ### Dart language basics
 Although you don't need to be a Dart programmer to create a Flutter mobile app, you can find helpful information on the [Dart programming language](https://www.dartlang.org/) website and in the [Dart Language Tour](https://www.dartlang.org/guides/language/language-tour).  
@@ -143,9 +178,9 @@ Most `Animation` subclasses take an explicit “parent” `Animation<double>` an
 
 ## AnimationController
 
-The `AnimationController` manages the animation and it’s the main child class of the `Animation<T>` class.  The `AnimationController` class lets you perform tasks such as the following:
+The `AnimationController` manages the animation and it’s the main child class of the `Animation<T>` class.  The `AnimationController` class controls the `Animation<T>` object and lets you perform tasks such as the following:
 * Play an animation forward or in reverse.
-* Stop an animation.
+* Start and stop an animation.
 * Set the animation to a specific value.
 * Define the upperBound and lowerBound values of an animation.
 * Create a fling animation effect using a physics simulation.
@@ -217,7 +252,7 @@ The status is defined by an enum with four states:
 
 ## AnimatedBuilder
 
-`AnimatedBuilder` is used for complex, explicit widgets where an animation is included in a larger build function. Use `AnimatedBuilder` widget to describe an animation as part of a build method for another widget.  
+`AnimatedBuilder` is used for explicit widgets where an animation is included in a larger build function. AnimatedBuilder creates a widget that can be animated by the controller. Use `AnimatedBuilder` widget to describe an animation as part of a build method for another widget.  
 
 ## AnimatedContainer
 The `AnimatedContainer` is a container that gradually changes its values over a period of time. The `AnimatedContainer` automatically animates between the old and new values of properties when they change using the specified `curve` and `duration`. Properties that are null are not animated.  <br>
@@ -238,7 +273,7 @@ A `CurvedAnimation` defines the animation progress as a non-linear curve.
   <tr>
     <td style="width:20%">
     <a href="" onMouseOver="document.MyImage1.src='/animations/images/curve2.gif';" onMouseOut="document.MyImage1.src='/animations/images/curve2.png';">
-    <img src="/animations/images/curve2.png" name="MyImage1" height="180" width="160" name="MyImage1">
+    <img src="/animations/images/curve2.png" name="MyImage1" height="180" width="160">
     </a></td>
       <td style="width:80%">
       <ul>
@@ -308,7 +343,7 @@ A `Ticker` can be started and stopped. When started, it returns a `Future` that 
 The widget test framework `WidgetTester` object can be used as a ticker provider for testing purposes. In other contexts, you will need to either pass a `TickerProvider` from a higher level for example, indirectly from a `State` that mixes in `TickerProviderStateMixin`, or create a custom `TickerProvider` subclass.
 
 ## Tweens
-
+<a name="tweens"></a>
 Tweening or inbetweening, is the process of generating intermediate frames between two images, called key frames, to give the appearance that the first image transforms smoothly from one key frame to the next key frame. Inbetweens are the drawings which create the illusion of motion. The sequence of frames is called a tween For example, a tween might define an interpolation from blue to yellow, or from 0 to 255.  
 
 <p><img src="/animations/images/tween_example.png" alt="Tweening" />

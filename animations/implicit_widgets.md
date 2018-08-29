@@ -16,11 +16,11 @@ If you’re new to Flutter or new to animation, consider starting with the built
 
 <div>
 <table class="table" width="100%">
-  <col width="35%">
-  <col width="65%">
+  <col width="45%">
+  <col width="55%">
 	<tbody>
     <tr>
-      <td><img src="/animations/images/implicit.png" alt="Implicit animation widgets"></td>
+      <td><img src="/animations/images/implicit2.png" alt="Implicit animation widgets"></td>
       <td>
       1. Create your <code>StatefulWidget</code>.<br>
       2. Create the <code>State</code> class to hold the animation object and the implicit animation widget.<br>
@@ -34,7 +34,7 @@ If you’re new to Flutter or new to animation, consider starting with the built
 
 To create your own reusable implicit animations, create a widget that extends `ImplicitlyAnimatedWidget`.
 
-For more complex or customized animations, you can use a subclass of `AnimatedWidget` to create [Transition animations](/animations/transition_widgets/) such as the `DecoratedBoxTransition` or you can build your own [Explicit animations](/animations/explicit_widgets/) using the `AnimationController`.  
+For customized animations, extend `AnimatedWidget` to create [Transition animations](/animations/transition_widgets/) such as the `DecoratedBoxTransition` or build your own [Explicit animations](/animations/explicit_widgets/) using the `AnimationController`.  
 
 ## Implicit animation examples  
 The `AnimatedOpacity` and `AnimatedCrossFade` are two implicit widgets included in the [widget](https://docs.flutter.io/flutter/widgets/widgets-library.html) library.  
@@ -44,11 +44,11 @@ The `AnimatedOpacity` and `AnimatedCrossFade` are two implicit widgets included 
 <table cellpadding="10">
   <tr>
     <td style="width:20%">
-    <a href="" onMouseOver="document.MyImage1.src='/animations/images/AnimatedOpacity_blue.gif';" onMouseOut="document.MyImage1.src='/animations/images/AnimatedOpacity_blue.png';">
-    <img src="/animations/images/AnimatedOpacity_blue.png" name="MyImage1" height="180" width="160" name="MyImage1">
+    <a href="" onMouseOver="document.MyImage1.src='/animations/images/animated_opacity.gif';" onMouseOut="document.MyImage1.src='/animations/images/animated_opacity.png';">
+    <img src="/animations/images/animated_opacity.png" name="MyImage1" height="180" width="160">
     </a></td>
     <td>
-    The <code>AnimatedOpacity</code> implicit widget automatically transitions a child's opacity over a given duration whenever the specified opacity changes.<br>Mouseover the image to view the animation.
+    The <code>AnimatedOpacity</code> implicit widget automatically transitions a child's opacity over a given duration whenever the specified opacity changes.
     </td>
   </tr>
 </table>
@@ -77,7 +77,7 @@ Mouseover the image to view the animation using the <code>AnimatedOpacity</code>
  <!-- <br>
  The `AnimatedOpacity` implicit widget automatically transitions a child's opacity over a given duration whenever the given opacity changes. Notice that the listeners, tickers, and other animation elements are *implied* so you don't need to add them. The `AnimatedOpacity` class extends `ImplicitlyAnimatedWidget` and those elements are already included in the `ImplicitlyAnimatedWidget` class. -->
 
-The code for the `AnimatedOpacity` example is shown below. The `AnimatedOpacity` widget extends the `ImplicitlyAnimatedWidget` class and already includes the listeners, tickers, and other elements that define the animation.  
+The code for the `AnimatedOpacity` example is shown below. The `AnimatedOpacity` widget extends the `ImplicitlyAnimatedWidget` class and already includes the listeners, tickers, and other elements that define the animation—so when you reuse the `AnimatedOpacity` widget, you don't need to specify those elements.  
 <!-- skip -->
 {% prettify dart %}
 ```Dart
@@ -97,35 +97,38 @@ class LogoFadeState extends [[highlight]]State<LogoFade>[[/highlight]] {
 
   @override
   Widget [[highlight]]build(BuildContext context)[[/highlight]] {
-    return new Column(
+    return new Container(
+      color: Colors.white,
+      child: new Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         new [[highlight]]AnimatedOpacity[[/highlight]](
           opacity: opacityLevel,
           duration: new Duration(seconds: 3),
           child: new Container (
-            width: 100.0,
-            height: 100.0,
-            color: Colors.blueAccent
+              width: 100.0,
+              height: 100.0,
+              color: Colors.blueAccent
           ),
         ),
         new SizedBox(height: 48.0),
         new RaisedButton(
           child: new Text('AnimatedOpacity'),
           textColor: Colors.white,
-          color: Colors.black,
+          color: Colors.black45,
           splashColor: Colors.blueAccent,
           onPressed: _changeOpacity,
         ),
       ],
+    ),
     );
+
   }
 }
 
 void main() {
   runApp(new MaterialApp(home: new LogoFade()));
 }
-
 ```
 {% endprettify %}
 
@@ -135,8 +138,8 @@ void main() {
 <table cellpadding="10">
   <tr>
     <td style="width:20%">
-    <a href="" onMouseOver="document.MyImage.src='/animations/images/AnimatedCrossFade_blue.gif';" onMouseOut="document.MyImage.src='/animations/images/AnimatedCrossFade_blue.png';">
-    <img src="/animations/images/AnimatedCrossFade_blue.png" name="MyImage" height="180" width="160" name="MyImage">
+    <a href="" onMouseOver="document.MyImage.src='/animations/images/animated_crossfade1.gif';" onMouseOut="document.MyImage.src='/animations/images/animated_crossfade1.png';">
+    <img src="/animations/images/animated_crossfade1.png" name="MyImage" height="180" width="160" name="MyImage">
     </a></td>
     <td>The <code>AnimatedCrossFade</code> implicit widget automatically cross-fades between two children and animates itself between their sizes.<br>
     Mouseover the image to view the animation.
@@ -165,10 +168,11 @@ Mouse over the image to view the animation using the <code>AnimatedCrossFade</co
  <!-- <a href="#" onmouseout="document.img2.src=img2Off.src;">◼︎</a> -->
 
 
- The code for the `AnimatedCrossFade` example is shown below. The `AnimatedCrossFade` class extends `ImplicitlyAnimatedWidget` which already includes the listeners, tickers, and other elements that define the animation. The listeners, tickers, and other animation elements are *implied* so you don't need to add them.  
+ The code for the `AnimatedCrossFade` example is shown below. The `AnimatedCrossFade` class extends `ImplicitlyAnimatedWidget` which already includes the listeners, tickers, and other elements that define the animation—they are *implied* or already stated, so you don't need to add them here.  
 
 {% prettify dart %}
 ```Dart
+
 import 'package:flutter/material.dart';
 
 class ImageCrossFade extends [[highlight]]StatefulWidget[[/highlight]] {
@@ -176,8 +180,9 @@ class ImageCrossFade extends [[highlight]]StatefulWidget[[/highlight]] {
   createState() => new _ImageCrossFadeState();
 }
 
-class _ImageCrossFadeState extends [[highlight]]State<ImageCrossFade>[[/highlight]] {
+class _ImageCrossFadeState extends [[highlight]]State<ImageCrossFade> [[/highlight]]{
   CrossFadeState _crossFadeState = CrossFadeState.showFirst;
+
 
   _changeImage() {
     setState(() {
@@ -188,40 +193,44 @@ class _ImageCrossFadeState extends [[highlight]]State<ImageCrossFade>[[/highligh
     });
   }
 
+
   @override
   Widget [[highlight]]build(BuildContext context)[[/highlight]] {
-    return new Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        new [[highlight]]AnimatedCrossFade[[/highlight]](
-          duration: const Duration(seconds: 3),
-          firstChild: new SizedBox(
-            child: new Container (
-                width: 150.0,
-                height: 150.0,
-                color: Colors.amberAccent
+    return new Container(
+      color: Colors.white,
+      child: new Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          new [[highlight]]AnimatedCrossFade[[/highlight]](
+            duration: const Duration(seconds: 3),
+            firstChild: new SizedBox(
+              child: new Container (
+                  width: 150.0,
+                  height: 150.0,
+                  color: Colors.amberAccent
+              ),
             ),
-          ),
-          secondChild: new SizedBox(
-            height: 100.0,
-            child: new Container (
-                width: 100.0,
-                height: 100.0,
-                color: Colors.blueAccent
+            secondChild: new SizedBox(
+              height: 100.0,
+              child: new Container (
+                  width: 100.0,
+                  height: 100.0,
+                  color: Colors.blueAccent
+              ),
             ),
+            crossFadeState: _crossFadeState,
           ),
-          crossFadeState: _crossFadeState,
-        ),
-        new SizedBox(height: 48.0),
-        new RaisedButton(
-          child: new Text('AnimatedCrossFade'),
-          textColor: Colors.white,
-          color: Colors.black,
-          splashColor: Colors.blueAccent,
+          new SizedBox(height: 48.0),
+          new RaisedButton(
+            child: new Text('AnimatedCrossFade'),
+            textColor: Colors.white,
+            color: Colors.black45,
+            splashColor: Colors.blueAccent,
 
-          onPressed: _changeImage,
-        ),
-      ],
+            onPressed: _changeImage,
+          ),
+        ],
+      )
     );
   }
 }

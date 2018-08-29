@@ -7,48 +7,53 @@ permalink: /animations/transition_widgets/
 * TOC Placeholder
 {:toc}
 
-Transition animations implement the abstract class `AnimatedWidget`. The `AnimatedWidget` class allows you to separate the widget code from the animation code in the `setState()` call. The `AnimatedWidget` class doesn’t need to maintain a `State` object to hold the animation. Use the  `AnimatedWidget` helper class (instead of `addListener()` and `setState()`) to create a reusable transition animation widget.  
+Transition animations are pre-defined and reusable—similar to implicit animations, but you control how the animation affects the animated object—similar to explicit animations.  
 
-< additional info on transition widgets >
+For example, you can reuse a `SlideTransition` animation widget and customize the way the animation target object becomes visible. You can push it into view from the left-side or the right-side of the display, or you can specify the type of curved animation applied to the object such as `elasticIn`, `elasticOut`, or `bounceIn`.
+
+<!-- Transition animations implement the abstract class `AnimatedWidget`. The `AnimatedWidget` class allows you to separate the widget code from the animation code in the `setState()` call. The `AnimatedWidget` class doesn’t need to maintain a `State` object to hold the animation. Use the  `AnimatedWidget` helper class (instead of `addListener()` and `setState()`) to create a reusable transition animation widget.   -->
+
 
 ## Using a transition animation widget
 
 <div>
 <table class="table" width="100%">
-  <col width="35%">
-  <col width="65%">
+  <col width="45%">
+  <col width="55%">
 	<tbody>
     <tr>
       <td><img src="/animations/images/transitions.png" alt="Transition animation widgets"></td>
-      <td> < Revise for a transition widget example >   
+      <td>
       1. Create your <code>StatefulWidget</code>.<br>
-      2. Create the <code>State</code> class to hold the animation object and the _transition_  animation widget.<br>
-      3. Specify the <code>BuildContext</code> to return the _transition_ animation widget, such as <code>animationexample</code>.<br>
-      4. Add the animation object, the duration of the animation, and any parameters relating to the _transition_ animation. For example, you would set the < example > for a <code>animationexample</code> widget.
+      2. Create the <code>State</code> class to hold the animation object, the <code>AnimationController</code>, and the transition animation widget.<br>
+      3. Add the <code>vsync</code>, <code>listener</code>, and <code>[tween](/animations/concepts#tweens)</code>.<br>
+      4. Specify the type of animation that you want to apply to the animation object.<br>
+      5. Dispose of the controller. <br>
+      6. Specify the <code>BuildContext</code> to return the _transition_ animation widget.<br>
       </td>
     </tr>
    </tbody>
   </table>
 </div>
 
+### Building your own transition animations
+Flutter includes many transition animations that you can reuse but you can build your own. To create a reusable transition animation, create a widget that extends `AnimatedWidget`.
 
-To create your own reusable transition animations, create a widget that extends `AnimatedWidget`.
-
-For more complex or customized animations, you can build [Explicit animations](/animations/explicit_widgets/) using the  `AnimationController` class.  
+Pre-defined transition animations already extend the `AnimatedWidget` class that allows you to separate the widget code from the animation code in the `setState()` call. The `AnimatedWidget` class doesn’t need to maintain a `State` object to hold the animation.
 
 ## Transition animation examples  
-The `RotationTransition` and `SlideTransition` are two transition animation widgets included in the widget package.  
+The `RotationTransition` and `SlideTransition` are two examples that use transition animation widgets included in the widget package.  
 
 ### RotationTransition example
 <!-- The `AnimatedOpacity` implicit widget automatically transitions a child's opacity over a given duration whenever the specified opacity changes. -->
 <table cellpadding="10">
   <tr>
-    <td style="width:20%">
+    <td style="width:25%">
     <a href="" onMouseOver="document.MyImage.src='/animations/images/rotation_transition.gif';" onMouseOut="document.MyImage.src='/animations/images/rotation_transition.png';">
-    <img src="/animations/images/rotation_transition.png" name="MyImage" height="180" width="160">
+    <img src="/animations/images/rotation_transition.png" name="MyImage">
     </a></td>
     <td>
-    The <code>RotationTransition</code> widget automatically rotates a widget. <br>Mouseover the image to view the animation.
+    The <code>RotationTransition</code> widget automatically rotates a widget.
     </td>
   </tr>
 </table>
@@ -91,16 +96,16 @@ void main() {
   );
 }
 
-class HomePage extends StatefulWidget {
+class HomePage extends [[highlight]]StatefulWidget[[/highlight]] {
   @override
   HomePageState createState() => new HomePageState();
 }
 
-class HomePageState extends State<HomePage> {
+class HomePageState extends [[highlight]]State<HomePage> [[/highlight]]{
   bool selected = false;
 
   @override
-  Widget build(BuildContext context) {
+  Widget [[highlight]]build(BuildContext context) [[/highlight]]{
     return new RotationTransitionExample(
       selected: selected,
       onTap: (bool value) {
@@ -112,7 +117,7 @@ class HomePageState extends State<HomePage> {
   }
 }
 
-class RotationTransitionExample extends StatefulWidget {
+class [[highlight]]RotationTransitionExample extends StatefulWidget[[/highlight]] {
   const RotationTransitionExample({
     Key key,
     this.selected = false,
@@ -129,7 +134,7 @@ class RotationTransitionExample extends StatefulWidget {
 class RotationTransitionExampleState extends State<RotationTransitionExample>
 // The TickerProviderStateMixin makes it so that this state object can
 // be used as the vsync for the AnimationController.
-    with TickerProviderStateMixin<RotationTransitionExample> {
+  [[highlight]]  with TickerProviderStateMixin<RotationTransitionExample>[[/highlight]] {
   AnimationController _controller;
   Animation<double> _rotationAnimation;
 
@@ -138,10 +143,10 @@ class RotationTransitionExampleState extends State<RotationTransitionExample>
     super.initState();
     // Create an animation controller, and rebuild the widget tree when we
     // listen to it, in order to generate frames.
-    _controller = new AnimationController(
+  [[highlight]]  _controller = new AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
-    )..addListener(() {
+    )..addListener(()[[/highlight]] {
       setState(() {
         // The value of the animation controller has changed, so we need to
         // rebuild the widget tree.
@@ -149,7 +154,7 @@ class RotationTransitionExampleState extends State<RotationTransitionExample>
     });
 
     // Set up the animation curve that we want to use.
-    _rotationAnimation = new CurvedAnimation(
+    _rotationAnimation = new [[highlight]]CurvedAnimation[[/highlight]](
       parent: _controller,
       // There are many different types of curves.
       curve: Curves.elasticOut,
@@ -186,7 +191,7 @@ class RotationTransitionExampleState extends State<RotationTransitionExample>
       },
       child: Container(
         color: Colors.white,
-        child: new RotationTransition(
+        [[highlight]]child: new RotationTransition[[/highlight]](
           turns: _rotationAnimation,
           child: const FlutterLogo(),
         ),
@@ -198,16 +203,58 @@ class RotationTransitionExampleState extends State<RotationTransitionExample>
 ```
 {% endprettify %}
 
+#### RotationTransition widget code
+
+The code for the `RotationTransition` animation widget used in the example is shown below. Notice that this widget extends `AnimatedWidget`. When you want to create a new transition widget that you can reuse, extend `AnimatedWidget`.
+
+{% prettify dart %}
+```Dart
+[[highlight]]class RotationTransition extends AnimatedWidget [[/highlight]]{
+  /// Creates a rotation transition.
+  ///
+  /// The [turns] argument must not be null.
+  const RotationTransition({
+    Key key,
+    @required Animation<double> turns,
+    this.child,
+  }) : super(key: key, listenable: turns);
+
+  /// The animation that controls the rotation of the child.
+  ///
+  /// If the current value of the turns animation is v, the child will be
+  /// rotated v * 2 * pi radians before being painted.
+  Animation<double> get turns => listenable;
+
+  /// The widget below this widget in the tree.
+  ///
+  /// {@macro flutter.widgets.child}
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final double turnsValue = turns.value;
+    final Matrix4 transform = new Matrix4.rotationZ(turnsValue * math.pi * 2.0);
+    return new Transform(
+      transform: transform,
+      alignment: Alignment.center,
+      child: child,
+    );
+  }
+}
+```
+{% endprettify %}
+
+
 ### SlideTransition example
 <!-- The `AnimatedOpacity` implicit widget automatically transitions a child's opacity over a given duration whenever the specified opacity changes. -->
 <table cellpadding="10">
   <tr>
-    <td style="width:20%">
+    <td style="width:25%">
     <a href="" onMouseOver="document.MyImage2.src='/animations/images/slide_transition.gif';" onMouseOut="document.MyImage2.src='/animations/images/slide_transition.png';">
     <img src="/animations/images/slide_transition.png" name="MyImage2">
     </a></td>
     <td>
-    The <code>SlideTransition</code> transition widget automatically animates the position of a widget relative to its normal position .<br>Mouseover the image to view the animation.
+    The <code>SlideTransition</code> transition widget automatically animates the position of a widget relative to its normal position.
     </td>
   </tr>
 </table>
@@ -250,12 +297,12 @@ void main() {
   );
 }
 
-class HomePage extends StatefulWidget {
+class HomePage extends [[highlight]]StatefulWidget[[/highlight]] {
   @override
   HomePageState createState() => new HomePageState();
 }
 
-class HomePageState extends State<HomePage> {
+class HomePageState extends [[highlight]]State<HomePage> [[/highlight]]{
   bool selected = false;
 
   @override
@@ -288,11 +335,11 @@ class SlideTransitionExample extends StatefulWidget {
 class SlideTransitionExampleState extends State<SlideTransitionExample>
 // The TickerProviderStateMixin makes it so that this state object can
 // be used as the vsync for the AnimationController.
-    with TickerProviderStateMixin<SlideTransitionExample> {
+    [[highlight]]with TickerProviderStateMixin<SlideTransitionExample>[[/highlight]] {
 
   // Because this animation doesn't just drive something that's a double,
   // we need a Tween to do the mapping from a double to an Offset.
-  static final Tween<Offset> _offsetTween = new Tween<Offset>(
+  [[highlight]]static final Tween<Offset> _offsetTween = new Tween<Offset>[[/highlight]](
     // Start with no offset.
     begin: Offset.zero,
     // End at this offset, which is down and to the right. The numbers are in
@@ -309,10 +356,10 @@ class SlideTransitionExampleState extends State<SlideTransitionExample>
     super.initState();
     // Create an animation controller, and rebuild the widget tree when we
     // listen to it, in order to generate frames.
-    _controller = new AnimationController(
+    [[highlight]]_controller = new AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
-    )..addListener(() {
+    )..addListener(() [[/highlight]]{
       setState(() {
         // The value of the animation controller has changed, so we need to
         // rebuild the widget tree.
@@ -359,7 +406,7 @@ class SlideTransitionExampleState extends State<SlideTransitionExample>
       },
       child: Container(
         color: Colors.white,
-        child: new SlideTransition(
+        [[highlight]]child: new SlideTransition([[/highlight]]
           position: _slideAnimation,
           child: const Padding(
             padding: const EdgeInsets.all(8.0),
@@ -374,6 +421,85 @@ class SlideTransitionExampleState extends State<SlideTransitionExample>
 ```
 {% endprettify %}
 
+#### SlideTransition widget code
+
+The code for the `SlideTransition` animation widget used in the example, is shown below. Notice that this transition widget extends `AnimatedWidget`. When you want to create a new transition widget that you can reuse, extend `AnimatedWidget`.
+
+{% prettify dart %}
+```Dart
+/// Animates the position of a widget relative to its normal position.
+///
+/// The translation is expressed as a [Offset] scaled to the child's size. For
+/// example, an [Offset] with a `dx` of 0.25 will result in a horizontal
+/// translation of one quarter the width of the child.
+///
+/// By default, the offsets are applied in the coordinate system of the canvas
+/// (so positive x offsets move the child towards the right). If a
+/// [textDirection] is provided, then the offsets are applied in the reading
+/// direction, so in right-to-left text, positive x offsets move towards the
+/// left, and in left-to-right text, positive x offsets move towards the right.  
+/// Creates a fractional translation transition.
+///
+/// The [position] argument must not be null.  
+
+  [[highlight]]class SlideTransition extends AnimatedWidget[[/highlight]] {  
+  const SlideTransition({
+    Key key,
+    @required Animation<Offset> position,
+    this.transformHitTests = true,
+    this.textDirection,
+    this.child,
+  }) : assert(position != null),
+       super(key: key, listenable: position);
+
+  /// The animation that controls the position of the child.
+  ///
+  /// If the current value of the position animation is `(dx, dy)`, the child
+  /// will be translated horizontally by `width * dx` and vertically by
+  /// `height * dy`, after applying the [textDirection] if available.
+  Animation<Offset> get position => listenable;
+
+  /// The direction to use for the x offset described by the [position].
+  ///
+  /// If [textDirection] is null, the x offset is applied in the coordinate
+  /// system of the canvas (so positive x offsets move the child towards the
+  /// right).
+  ///
+  /// If [textDirection] is [TextDirection.rtl], the x offset is applied in the
+  /// reading direction such that x offsets move the child towards the left.
+  ///
+  /// If [textDirection] is [TextDirection.ltr], the x offset is applied in the
+  /// reading direction such that x offsets move the child towards the right.
+  final TextDirection textDirection;
+
+  /// Whether hit testing should be affected by the slide animation.
+  ///
+  /// If false, hit testing will proceed as if the child was not translated at
+  /// all. Setting this value to false is useful for fast animations where you
+  /// expect the user to commonly interact with the child widget in its final
+  /// location and you want the user to benefit from "muscle memory".
+  final bool transformHitTests;
+
+  /// The widget below this widget in the tree.
+  ///
+  /// {@macro flutter.widgets.child}
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    Offset offset = position.value;
+    if (textDirection == TextDirection.rtl)
+      offset = new Offset(-offset.dx, offset.dy);
+    return new FractionalTranslation(
+      translation: offset,
+      transformHitTests: transformHitTests,
+      child: child,
+    );
+  }
+}
+
+```
+{% endprettify %}
 
 ## Transition animations widgets
 
