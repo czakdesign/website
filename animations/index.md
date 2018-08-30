@@ -1,159 +1,161 @@
 ---
 layout: page
-title: Animations in Flutter
+title: Flutter Animations
 permalink: /animations/
 ---
 
 * TOC Placeholder
 {:toc}
 
-Well-designed animations makes a UI feel more intuitive,
-contribute to the slick look and feel of a polished app,
-and improve the user experience. Flutter's animation support
-makes it easy to implement a variety of animation types.
-Many widgets, especially
-[Material Design widgets](https://flutter.io/widgets/material/),
-come with the standard motion effects defined in their design spec,
-but it's also possible to customize these effects.
 
-The following resources are a good place to start learning the Flutter
-animation framework. Each of these documents shows, step by step, how
-to write animation code.
-{% comment %}
-More documentation is in the works on how to implement common design
-patterns, such as shared element transitions,
-and physics-based animations.
-If you have a specific request, please
-[file an issue](https://github.com/flutter/flutter/issues).
-{% endcomment %}
+<!-- Well-designed animations makes a UI more intuitive, contributes to the sophisticated look and feel of a polished app, and improves the user experience. Flutter’s animation framework makes it easy to implement basic and advanced animation types—so whether you are new to animations or an animation wizard, Flutter provides the platform to bring your creative vision to life. -->
 
-* [Tutorial: Animations in Flutter](/tutorials/animation/)<br>
-Explains the fundamental classes in the Flutter animation package
-(controllers, Animatable, curves, listeners, builders),
-as it guides you through a progression of tween animations using
-different aspects of the animation APIs.
+<!-- <img src="images/rotation_transition.gif" onload="loadImage()" width="100" height="132">
 
-* [Zero to One with Flutter, part
-1](https://medium.com/dartlang/zero-to-one-with-flutter-43b13fd7b354) and [part
-2](https://medium.com/dartlang/zero-to-one-with-flutter-part-two-5aa2f06655cb)<br>
-Medium articles showing how to create an animated chart using tweening.
+<script>
+function loadImage() {
+    alert("Image is loaded");
+}
+</script> -->
 
-* [Building Beautiful UIs with
-Flutter](https://codelabs.developers.google.com/codelabs/flutter/index.html#0)<br>
-Codelab demonstrating how to build a simple chat app. [Step 7 (Animate
-your app)](https://codelabs.developers.google.com/codelabs/flutter/index.html#6)
-shows how to animate the new message&mdash;sliding it from the input area up
-to the message list.
+<img src="images/Animation_Loop2.gif" onload="loadImage()">
+<script>
+function loadImage()
+</script>
 
-## Animation types
+Using Flutter animation widgets means you don’t have to write sophisticated drawing code to include animations in your app. The animation widgets already include definitions for standard motion effects such as *fade out* or *slide transition* so most of the code required to draw each animation frame is already written for you.  
 
-Animations fall into one of two categories: tween- or physics-based.
-The following sections explain what these terms mean, and points you to
-resources where you can learn more. In some cases,
-the best documentation we currently have is example code in the
-Flutter gallery.
+## Animation widget types
+Flutter animations widgets are *implicit*, *transition*, or *explicit*. Because the implicit and transition animation widgets already include the animation code, the level of customization is moderate. If you’re starting out in animations, or you want to quickly add an animation to your app, try out the implicit or transition animation widgets.
 
-### Tween animation
+![Widget customization level](images/customization1.png)
+<br>
 
-Short for _in-betweening_. In a tween animation, the beginning
-and ending points are defined, as well as a timeline, and a curve
-that defines the timing and speed of the transition.
-The framework calculates how to transition from the beginning point
-to the end point.
+For more customizable animations, Flutter provides explicit animation widgets. You can build your own explicit animations using the `AnimatedBuilder` or `TransitionBuilder` widgets.
 
-The documents listed above, such as the [animations
-tutorial](/tutorials/animation/) are not about tweening,
-specifically, but they use tweens in their examples.
 
-### Physics-based animation
 
-In physics-based animation, motion is modeled to resemble real-world
-behavior. When you toss a ball, for example, where and when
-it lands depends on how fast it was tossed, how heavy it is, and how
-far off the ground. Similarly, dropping a ball attached to a spring falls
-(and bounces) differently than dropping a ball attached to a string.
 
-* [Flutter Gallery](https://github.com/flutter/flutter/tree/master/examples/flutter_gallery)<br>
-Under **Material Components**, the
-[Grid](https://github.com/flutter/flutter/blob/master/examples/flutter_gallery/lib/demo/material/grid_list_demo.dart) example
-demonstrates a fling animation. Select one of the images from
-the grid and zoom in. You can pan the image with flinging or dragging
-gestures.
+### Implicit animation widgets
 
-* Also see the API documentation for
-[AnimationController.animateWith](https://docs.flutter.io/flutter/animation/AnimationController/animateWith.html) and
-[SpringSimulation](https://docs.flutter.io/flutter/physics/SpringSimulation-class.html).
+ *Implicit animations* are animations that are already programmed or styled—all you need to do is add the animated object, and set some basic parameters such as the duration. You don’t need to write the animation code to add listeners or tickers for example, and you don't need to tell the app when to start—the animation begins automatically when a property value changes.
 
-## Common animation patterns
+ <!-- The `AnimatedOpacity` and `AnimatedCrossFade` widgets are two examples of implicit animations. -->
 
-Most UX or motion designers find that certain animation patterns are
-used repeatedly when designing a UI. This section lists some of the commonly
-used animation patterns, and tells you where you can learn more.
+ <table cellpadding="5" style="width:650px">
+   <tr>
+   <td style="width:5%">
+   <a href="" onMouseOver="document.MyImage.src='/animations/images/animated_crossfade1.gif';" onMouseOut="document.MyImage.src='/animations/images/animated_crossfade1.png';">
+   <img src="/animations/images/animated_crossfade1.png" name="MyImage" height="180" width="160" name="MyImage">
+   </a></td>
+     <td style="width:15%">
+    The <code>AnimatedCrossFade</code> and <code>AnimatedOpacity</code> widgets are two animation examples that use implicit animation widgets.
+     </td>
+     <td style="width:5%">
+     <a href="" onMouseOver="document.MyImage1.src='/animations/images/animated_opacity.gif';" onMouseOut="document.MyImage1.src='/animations/images/animated_opacity.png';">
+     <img src="/animations/images/animated_opacity.png" name="MyImage1" height="180" width="160">
+     </a></td>
+   </tr>
+ </table>
 
-### Animated list or grid
-This pattern involves animating the addition or removal of elements from a
-list or grid.
 
-* [AnimatedList example](/catalog/samples/animated-list/)<br>
-This demo, from the [Sample App Catalog](/catalog/samples), shows how to
-animate adding an element to a list, or removing a selected element.
-The internal Dart list is synced as the user modifies the list using
-the plus (+) and minus (-) buttons.
 
-### Shared element transition
+ <br>
+ For more information including a list of implicit widgets, see [Flutter Implicit Animations](/animations/implicit_widgets).
 
-In this pattern, the user selects an element&mdash;often an
-image&mdash;from the page, and the UI animates the selected element
-to a new page with more detail. In Flutter, you can easily implement
-shared element transitions between routes (pages) using the Hero widget.
 
-* [Hero Animations](/animations/hero-animations/)
-How to create two styles of Hero animations:
-  * The hero flies from one page to another while changing position
-    and size.
-  * The hero's boundary changes shape, from a circle to a square,
-    as its flies from one page to another.
+### Transition animation widgets
 
-* [Flutter Gallery](https://github.com/flutter/flutter/tree/master/examples/flutter_gallery)<br>
-You can build the Gallery app yourself, or download it from the Play Store.
-The [Shrine](https://github.com/flutter/flutter/blob/master/examples/flutter_gallery/lib/demo/shrine_demo.dart)
-demo includes an example of a Hero animation.
+*Transition animations* are easy to use like implicit animations because transition animation widgets are pre-defined for you, but they also allow you to customize some elements that are included in the explicit animations. With transition animation widgets, you can specify a visual effect that determines how the animation target object is animated. You include the `AnimationController` to control the animation. For example, you can control how the object is made visible or hidden or how to get from the start value to the end value.  
 
-* Also see the API documentation for the
-[Hero,](https://docs.flutter.io/flutter/widgets/Hero-class.html)
-[Navigator,](https://docs.flutter.io/flutter/widgets/Navigator-class.html) and
-[PageRoute](https://docs.flutter.io/flutter/widgets/PageRoute-class.html)
-classes.
+ <table cellpadding="5" style="width:650px">
+  <tr>
+   <td style="width:5%">
+  <a href="" onMouseOver="document.MyImage3.src='/animations/images/rotation_transition.gif';" onMouseOut="document.MyImage3.src='/animations/images/rotation_transition.png';">
+  <img src="/animations/images/rotation_transition.png" name="MyImage3" height="180" width="160" name="MyImage3">
+  </a></td>
+    <td style="width:15%">
+   The <code>RotationTransition</code> and <code>SlideTransition</code> widgets are two animation examples that use transition animation widgets.
+    </td>
+    <td style="width:5%">
+    <a href="" onMouseOver="document.MyImage4.src='/animations/images/slide_transition.gif';" onMouseOut="document.MyImage4.src='/animations/images/slide_transition.png';">
+    <img src="/animations/images/slide_transition.png" name="MyImage4" height="180" width="160">
+    </a></td>
+  </tr>
+</table>
 
-### Staggered animation
 
-Animations that are broken into smaller motions, where some of the motion is delayed.
-The smaller animations may be sequential, or may partially or completely overlap.
 
-* [Staggered Animations](/animations/staggered-animations/) <img src="/images/ic_new_releases_black_24px.svg" alt="this doc is new!"> NEW<br>
+<br>
+For more information including a list of transition widgets, [Flutter Transition Animations](/animations/transition_widgets).  
 
-## Other resources
 
-Learn more about Flutter animations at the following links:
+### Explicit animation widgets
 
-* [Animations: Technical Overview](/animations/overview.html)<br>
-A look at some of the major classes in the animations library,
-and Flutter's animation architecture.
+ *Explicit animations* involve building customized animations using the `AnimationBuilder` widget that allows you to customize many of the animation elements that are pre-defined in the implicit and transition animation widgets. When you build explicit animations, you manually add listeners, tickers, and other elements for customization.  
+ <br>
+ For more information, see [Flutter Explicit Animations](/animations/explicit_widgets).  
 
-* [Animation and Motion Widgets](/widgets/animation/)<br>
-A catalog of some of the animation widgets provided in the Flutter APIs.
+## Choosing an animation widget
+Choosing an animation widget depends on the customization that you need for your animation and whether there is an existing widget available for reuse.
 
-{% comment %}
-Until the landing page for the animation library is reworked, leave this
-link out.
-* The [animation
-library](https://docs.flutter.io/flutter/animation/animation-library.html)
-in the [Flutter API documentation](https://docs.flutter.io/)<br>
-The animation API for the Flutter framework.
-{% endcomment %}
+* Choose an implicit animation when you want to reuse an existing implicit animation widget and change the animation object. Using an implicit animation widget allows you to set the duration, and start and end points.
 
-<hr>
+* Choose a transition animation when you want to reuse a transition animation widget, but you also want to customize some of the animation elements that are part of the `AnimationController` such as the ticker, listener, status, and the direction of the animation or the type of curve.
 
-If there is specific animation documentation you'd like to see, please
-[file an issue](https://github.com/flutter/flutter/issues).
+* Choose an explicit animation if you want to build an animation from scratch. You can also use an explicit animation to build implicit and transition animation widgets for reuse.
 
+
+The table below shows the customizable elements in each animation type.
+
+![Choosing an animation table](images/config_elements_table.png)
+<br>
+
+
+## Flutter packages
+The Flutter SDK includes several libraries that contain pre-defined animation widgets. To access the Flutter animation widgets, determine the library that contains the widget that you want to use and then add the appropriate import statement to the `main.dart` file.
+
+```Dart
+import 'package:flutter/animation.dart';
+import 'package:flutter/material.dart';
+```
+<!-- For information on the SDK libraries and available widgets in each library, see the following resources.
+
+* [Flutter SDK libraries](https://docs.flutter.io/index.html)  
+* [Animation and Motion Widgets](/widgets/animation/)  
+* [Flutter Widget Index](/widgets/widgetindex/)  
+* [Widget Catalog](/widgets/) -->
+
+## Flutter animation resources  
+To learn about Flutter animations, check out the following resources.
+
+### Concepts  
+[Flutter Animation Concepts](/animations/concepts) describes how Flutter animation works and it includes definitions of the main animation concepts. You'll find information on the main animation widgets such as the `AnimationController` or `AnimationBuilder`, and information about [tweens](/animations/concepts#tweens), curves, tickers, and more.  
+
+
+### Animation and Motion widgets  
+For a list of Flutter animation widgets, see the following:
+* [Implicit animation widgets](/animations/implicit_widgets)  
+* [Transition animation widgets](/animations/transition_widgets)  
+* [Explicit animation widgets](/animations/explicit_widgets)  
+* [Animation and Motion Widgets Catalog](/widgets/animation/)  
+
+
+### Animation patterns  
+The following list provides links to "How-to" information or source code for some of the common and most popular animation widgets.  
+* [AnimatedList](/catalog/samples/animated-list/)—How to display a list of cards that stay in sync using the  ListModel widget. When an item is added or removed from the model, the corresponding card animates in or out of view.
+* [Shared element animations](/animations/hero-animations/)—How to build shared element animations. In Flutter, the [Hero animations widget](https://docs.flutter.io/flutter/widgets/Hero-class.html) is an example of a shared element animation. The guide shows two examples: a standard hero animation and one that transforms the image from a circular shape to a square shape during flight.  The [Shrine Demo](https://github.com/flutter/flutter/blob/master/examples/flutter_gallery/lib/demo/shrine_demo.dart) shows another example showing hero animations.
+* [Staggered Animations Demo](/animations/staggered-animations/)—How to build a staggered animation where animations start at different points on a timeline.  
+* [Flutter Gallery](https://github.com/flutter/flutter/tree/master/examples/flutter_gallery)—How to build the Flutter Gallery app and install it onto your device. The Flutter Gallery is a one-stop demo app that shows off many of the Material Design widgets and many types of animations.  
+*  Physics-based animations—In physics-based animation, motion is modeled to resemble real-world behavior. When you toss a ball, for example, where and when it lands depends on the speed, the weight, and distance from the ground that the ball was tossed. Similarly, dropping a ball attached to a spring falls and bounces differently than dropping a ball attached to a string.  <br>
+    Under the Material Components of the Flutter Gallery, the [Grid](https://github.com/flutter/flutter/blob/master/examples/flutter_gallery/lib/demo/material/grid_list_demo.dart) example demonstrates a fling physics-based animation. Select one of the images from the grid and zoom in. You can pan the image with flinging or dragging gestures.  
+    <br>  
+    The Flutter API documentation includes information on physics-based animation such as  [AnimationController.animateWith](https://docs.flutter.io/flutter/animation/AnimationController/animateWith.html) method and the [SpringSimulation](https://docs.flutter.io/flutter/physics/SpringSimulation-class.html) class.
+
+### Flutter animation YouTube videos  
+Another great way to learn about Flutter animations is to check out [Flutter animations on YouTube](https://www.youtube.com/results?search_query=Flutter+animations). For example, the [The Basics of Animation with Dart's Flutter Framework](https://www.youtube.com/watch?v=5urRyqOwTuo) tutorial describes the basics of tween-based animations in Flutter.
+
+### Articles  
+Check out the [Flutter Publication on Medium](https://medium.com/google-developer-experts/introducing-the-flutterdoc-publication-3becc900b611.com) for articles about developing apps using Flutter. Many third parties have published on Medium including the following articles:  
+* [Zero to One with Flutter](https://medium.com/flutter-io/zero-to-one-with-flutter-43b13fd7b354) — *Discovering the strength of Flutter’s widget and tween concepts by writing chart animations in Dart for an Android/iOS app*.  
+* [Zero to One with Flutter, Part Two](https://medium.com/flutter-io/zero-to-one-with-flutter-part-two-5aa2f06655cb) — *Discovering how to animate composite graphical objects in the context of a cross-platform mobile app*.
