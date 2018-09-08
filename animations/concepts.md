@@ -7,7 +7,6 @@ permalink: /animations/concepts/
 * TOC Placeholder
 {:toc}
 
-
 This section describes the basic concepts behind the Flutter animation architecture.
 
 If you use Flutter's built-in implicit and transition widgets, you may not need to interact with all of the Flutter core animation concepts directly because most of the work required to code the animation is already done. But for customized explicit animations, it's important to understand the animation concepts used to fine-tune and control your animations.
@@ -67,9 +66,6 @@ When you're planning your animation, check out the [Material Design principals o
 <img src="/animations/images/easing.png" name="Easing" height="100%" width="100%">
 </a>
 
-<!-- ![image](images/easing.png)
-
-<img src="/animations/images/easing.png" name="Easing" height="100%" width="100%"> -->
 
 This graph shows the easing of an element that remains visible throughout a transition. The y-axis shows the position and the x-axis shows the time.
 

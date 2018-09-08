@@ -53,29 +53,6 @@ The `AnimatedOpacity` and `AnimatedCrossFade` are two implicit widgets included 
   </tr>
 </table>
 
-<!-- <a href="" onMouseOver="document.MyImage1.src='/animations/images/AnimatedOpacity_blue.gif';" onMouseOut="document.MyImage1.src='/animations/images/AnimatedOpacity_blue.png';">
-<img src="/animations/images/AnimatedOpacity_blue.png" name="MyImage1" height="180" width="160" name="MyImage1">
-</a>
-Mouseover the image to view the animation using the <code>AnimatedOpacity</code> implicit widget. -->
-
-<!-- <div>
-<img src="/animations/images/AnimatedOpacity_blue.png" name="img" height="180" width="160">
-
- <script>
- imgOn2 = new Image;
- imgOff2 = new Image;
- imgOn2.src = "/animations/images/AnimatedOpacity_blue.gif";
- imgOff2.src = "/animations/images/AnimatedOpacity_blue.png";
- </script>
-
- <a href="#C4" onClick="document.img.src=imgOn2.src;">▶︎</a>
- <a href="#C4" onClick="document.img.src=imgOff2.src;">◼︎</a>
-
- This example shows an animation using the <code>AnimatedOpacity</code> implicit widget.
-</div> -->
-
- <!-- <br>
- The `AnimatedOpacity` implicit widget automatically transitions a child's opacity over a given duration whenever the given opacity changes. Notice that the listeners, tickers, and other animation elements are *implied* so you don't need to add them. The `AnimatedOpacity` class extends `ImplicitlyAnimatedWidget` and those elements are already included in the `ImplicitlyAnimatedWidget` class. -->
 
 The code for the `AnimatedOpacity` example is shown below. The `AnimatedOpacity` widget extends the `ImplicitlyAnimatedWidget` class and already includes the listeners, tickers, and other elements that define the animation—so when you reuse the `AnimatedOpacity` widget, you don't need to specify those elements.  
 <!-- skip -->
@@ -146,26 +123,6 @@ void main() {
   </td>
   </tr>
 </table>
-
-
-<!-- <a href="" onMouseOver="document.MyImage.src='/animations/images/AnimatedCrossFade_blue.gif';" onMouseOut="document.MyImage.src='/animations/images/AnimatedCrossFade_blue.png';">
-<img src="/animations/images/AnimatedCrossFade_blue.png" name="MyImage" height="180" width="160" name="MyImage">
-</a>
-Mouse over the image to view the animation using the <code>AnimatedCrossFade</code> implicit widget. -->
-
-<!-- onMouseOut="document.MyImage.src='/animations/images/AnimatedCrossFade_orig.png';">
-<img src="/animations/images/AnimatedCrossFade_orig.png" name="MyImage" height="180" widgth="160"> -->
-
-<!-- <img src="/animations/images/AnimatedCrossFade_orig.png" name="img2" height="180" width="160">
- <script>
- img2On = new Image;
- img2Off = new Image;
- img2On.src = "/animations/images/AnimatedCrossFade_blue.gif";
- img2Off.src = "/animations/images/AnimatedCrossFade_orig.png";
- </script>
-
- <a href="#" onmouseover="document.img2.src=img2On.src;"><img src="/animations/images/AnimatedCrossFade_orig.png" name="img2" height="180" width="160"></a>
- <!-- <a href="#" onmouseout="document.img2.src=img2Off.src;">◼︎</a> -->
 
 
  The code for the `AnimatedCrossFade` example is shown below. The `AnimatedCrossFade` class extends `ImplicitlyAnimatedWidget` which already includes the listeners, tickers, and other elements that define the animation—they are *implied* or already stated, so you don't need to add them here.  

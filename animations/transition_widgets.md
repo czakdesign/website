@@ -56,31 +56,7 @@ The `RotationTransition` and `SlideTransition` are two examples that use transit
     The <code>RotationTransition</code> widget automatically rotates a widget.
     </td>
   </tr>
-</table>
-
-<!-- <a href="" onMouseOver="document.MyImage1.src='images/AnimatedOpacity_blue.gif';" onMouseOut="document.MyImage1.src='images/AnimatedOpacity_blue.png';">
-<img src="images/AnimatedOpacity_blue.png" name="MyImage1" height="180" width="160" name="MyImage1">
-</a>
-Mouseover the image to view the animation using the <code>AnimatedOpacity</code> implicit widget. -->
-
-<!-- <div>
-<img src="images/AnimatedOpacity_blue.png" name="img" height="180" width="160">
-
- <script>
- imgOn2 = new Image;
- imgOff2 = new Image;
- imgOn2.src = "images/AnimatedOpacity_blue.gif";
- imgOff2.src = "images/AnimatedOpacity_blue.png";
- </script>
-
- <a href="#C4" onClick="document.img.src=imgOn2.src;">▶︎</a>
- <a href="#C4" onClick="document.img.src=imgOff2.src;">◼︎</a>
-
- This example shows an animation using the <code>AnimatedOpacity</code> implicit widget.
-</div> -->
-
- <!-- <br>
- The `AnimatedOpacity` implicit widget automatically transitions a child's opacity over a given duration whenever the given opacity changes. Notice that the listeners, tickers, and other animation elements are *implied* so you don't need to add them. The `AnimatedOpacity` class extends `ImplicitlyAnimatedWidget` and those elements are already included in the `ImplicitlyAnimatedWidget` class. -->
+</table>  
 
 The code for the `RotationTransition` example is shown below.   
 <!-- skip -->
@@ -257,31 +233,7 @@ The code for the `RotationTransition` animation widget used in the example is sh
     The <code>SlideTransition</code> transition widget automatically animates the position of a widget relative to its normal position.
     </td>
   </tr>
-</table>
-
-<!-- <a href="" onMouseOver="document.MyImage1.src='images/AnimatedOpacity_blue.gif';" onMouseOut="document.MyImage1.src='images/AnimatedOpacity_blue.png';">
-<img src="images/AnimatedOpacity_blue.png" name="MyImage1" height="180" width="160" name="MyImage1">
-</a>
-Mouseover the image to view the animation using the <code>AnimatedOpacity</code> implicit widget. -->
-
-<!-- <div>
-<img src="images/AnimatedOpacity_blue.png" name="img" height="180" width="160">
-
- <script>
- imgOn2 = new Image;
- imgOff2 = new Image;
- imgOn2.src = "images/AnimatedOpacity_blue.gif";
- imgOff2.src = "images/AnimatedOpacity_blue.png";
- </script>
-
- <a href="#C4" onClick="document.img.src=imgOn2.src;">▶︎</a>
- <a href="#C4" onClick="document.img.src=imgOff2.src;">◼︎</a>
-
- This example shows an animation using the <code>AnimatedOpacity</code> implicit widget.
-</div> -->
-
- <!-- <br>
- The `AnimatedOpacity` implicit widget automatically transitions a child's opacity over a given duration whenever the given opacity changes. Notice that the listeners, tickers, and other animation elements are *implied* so you don't need to add them. The `AnimatedOpacity` class extends `ImplicitlyAnimatedWidget` and those elements are already included in the `ImplicitlyAnimatedWidget` class. -->
+</table>  
 
 The code for the `SlideTransition` example is shown below.  
 <!-- skip -->
